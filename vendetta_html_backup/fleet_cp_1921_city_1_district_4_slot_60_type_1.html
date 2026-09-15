@@ -1,0 +1,2679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+     ===========================================
+       ____   _____                     __   __
+      / __ \ / ____|                    \ \ / /
+     | |  | | |  __  __ _ _ __ ___   ___ \ V /
+     | |  | | | |_ |/ _` | '_ ` _ \ / _ \ > <
+     | |__| | |__| | (_| | | | | | |  __// . \
+      \____/ \_____|\__,_|_| |_| |_|\___/_/ \_\
+     ===========================================
+
+     Powered by OGameX - Explore the universe! Conquer your enemies!
+     GitHub: https://github.com/lanedirt/OGameX
+     Version: 0.13.0
+
+    This application is released under the MIT License. For more details, visit the GitHub repository.
+    -->
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd">
+    <link rel="apple-touch-icon" href="https://vendettalegacy.es/img/vendetta-favicon.png?v=20260428"/>
+    <link rel="icon" type="image/png" href="https://vendettalegacy.es/img/vendetta-favicon.png?v=20260428"/>
+    <link rel="shortcut icon" href="https://vendettalegacy.es/favicon.ico?v=20260428"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Language" content="en"/>
+    <meta name="ogame-session" content="3c442273a6de4c8f79549e78f4c3ca50e7ea7580"/>
+    <meta name="ogame-version" content="1.0.8"/>
+    <meta name="ogame-timestamp" content="1513426692"/>
+    <meta name="ogame-universe" content="s1"/>
+    <meta name="ogame-universe-name" content="Home"/>
+    <meta name="ogame-universe-speed" content="3"/>
+    <meta name="ogame-universe-speed-fleet" content="1"/>
+    <meta name="ogame-language" content="en"/>
+    <meta name="ogame-donut-galaxy" content="1"/>
+    <meta name="ogame-donut-system" content="1"/>
+    <meta name="ogame-player-id" content="124"/>
+    <meta name="ogame-player-name" content="profe matias prestes"/>
+    <meta name="ogame-alliance-id" content=""/>
+    <meta name="ogame-alliance-name" content=""/>
+    <meta name="ogame-alliance-tag" content=""/>
+    <!-- TODO: update with current planet details -->
+    <meta name="ogame-planet-id" content="1921"/>
+    <meta name="ogame-planet-name" content="Homeworld"/>
+    <meta name="ogame-planet-coordinates" content="1:9:9"/>
+    <meta name="ogame-planet-type" content="planet"/>
+
+    <title>vendettalegacy.es | s1 | profe matias prestes</title>
+    <meta property="og:title" content="vendettalegacy.es">
+    <meta property="og:site_name" content="vendettalegacy.es">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vendettalegacy.es/fleet">
+    <meta name="description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+    <meta property="og:image:alt" content="Vendetta Legacy">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+
+    <link rel="stylesheet" href="/css/ingame.css?id=71d98f079b50b28ec13182a1f354fcf0">
+        <link rel="stylesheet" href="https://vendettalegacy.es/css/vendetta-legacy-layout.css?v=53">
+                            <link rel="stylesheet" href="https://vendettalegacy.es/css/vendetta-resource-bar.css?v=10">
+                                    <link rel="stylesheet" href="https://vendettalegacy.es/css/vendetta-legacy-fleet.css?v=6">
+                                        <link rel="stylesheet" href="https://vendettalegacy.es/css/vendetta-mobile-responsive.css?v=20">
+    <script src="/js/ingame.min.js?id=51ae75fc34043ef27f57e6fa59254159"></script>
+
+    
+    <script type="text/javascript">
+        // Define timerHandler globally to prevent simpleCountdown errors
+        if (!window.timerHandler) {
+            window.timerHandler = {
+                timers: [],
+                callbacks: [],
+                register: function(timer) {
+                    this.timers.push(timer);
+                },
+                unregister: function(timer) {
+                    var index = this.timers.indexOf(timer);
+                    if (index > -1) {
+                        this.timers.splice(index, 1);
+                    }
+                },
+                appendCallback: function(callback) {
+                    this.callbacks.push(callback);
+                },
+                init: function() {
+                    // Initialize timer handler
+                },
+                stop: function() {
+                    // Stop all timers
+                }
+            };
+        }
+
+        window.LocalizationStrings = window.LocalizationStrings || {};
+        window.LocalizationStrings.timeunits = {"short":{"day":"d","hour":"h","minute":"m","second":"s"},"long":{"day":"day","hour":"hour","minute":"minute","second":"second"}};
+
+        window.token = "mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd";
+        window.OGX_EVENTBOX_POLL_MS = 5000;
+        var inventoryObj;
+        $.holdReady(true);
+
+        // Vendetta: resource bar values should be informational only (no navigation on click).
+        document.addEventListener('click', function (event) {
+            var box = event.target.closest('#metal_box, #crystal_box, #deuterium_box, #energy_box');
+            if (!box) {
+                return;
+            }
+            if (!document.body.classList.contains('ogx-vendetta-resourcebar')) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+        }, true);
+
+        var s = setInterval(function () {
+            if (typeof initEmpireEquipment === "function") {
+                $.holdReady(false);
+                clearInterval(s);
+            }
+        }, 1);
+    </script>
+
+    <!-- Removed all custom close button CSS to restore normal jQuery UI behavior -->
+</head>
+<body id="ingamepage" class="ogame lang-en default no-touch game_vendetta ogx-vendetta-ingame ogx-vendetta-resourcebar  ">
+<div id="initial_welcome_dialog" title="Welcome to OGame!" style="display: none;">
+    To help your game start get moving quickly, we've assigned you the name Commodore Nebula. You can change this at any
+    time by clicking on the username.<br/>
+    Fleet Command has left you information on your first steps in your inbox, to help you be well-equipped for your
+    start.<br/>
+    <br/>
+    Have fun playing!
+</div>
+<div id="siteHeader"></div>
+<div id="wraper" class="login_1 ogx-vendetta-wraper">
+    <div id="topbar" class="ogx-vendetta-topbar" aria-hidden="true"></div>
+    <div id="logo">
+        <h1><a href="https://vendettalegacy.es/overview">OGameX</a></h1>
+    </div>
+    <div id="ogxMobileMenuBackdrop" aria-hidden="true"></div>
+<div id="pageContent">
+    <div id="top">
+        <div id="pageReloader" onclick="javascript: redirectOverview();"></div>
+        <div id="headerbarcomponent" class="">
+            <div id="bar">
+                <ul>
+                    <li id="playerName">
+                        Player:
+                        <selected-language-icon
+                                style="background-image: url('/img/flags/a176fcd6f3e3de2bed6a73a8b1d5e7.png');"></selected-language-icon>
+
+                        <span class="textBeefy">
+                                <a href="https://vendettalegacy.es/overlay/changenick"
+                                   class="overlay textBeefy"
+                                   data-overlay-title="Change player name"
+                                   data-overlay-popup-width="400"
+                                   data-overlay-popup-height="200"
+                                >
+                                    profe matias prestes
+                                </a>
+                            </span>
+                    </li>
+                    <li>
+                        <a href="https://vendettalegacy.es/highscore" accesskey="">Highscore</a>
+                        (106)
+                    </li>
+                    <li>
+                        <a href="https://vendettalegacy.es/overlay/notes"
+                           class="overlay" data-overlay-title="My notes"
+                           data-overlay-class="notices"
+                           data-overlay-popup-width="750"
+                           data-overlay-popup-height="480"
+                           accesskey="">
+                            Notes</a>
+                    </li>
+                    <li>
+                        <a class=""
+                           accesskey=""
+                           href="https://vendettalegacy.es/buddies"
+                        >
+                            Buddies</a>
+                    </li>
+                    <li><a class="overlay"
+                           href="https://vendettalegacy.es/overlay/search"
+                           data-overlay-title="Search Universe"
+                           data-overlay-close="__default closeSearch"
+                           data-overlay-class="search"
+                           accesskey="">Search</a>
+                    </li>
+                    <li><a href="https://vendettalegacy.es/options" accesskey="">Options</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li>
+                        <a href="https://vendettalegacy.es/logout" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Log out</a>
+
+                        <form id="logout-form" action="https://vendettalegacy.es/logout" method="POST"
+                              style="display: none;">
+                            <input type="hidden" name="_token" value="mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd" autocomplete="off">
+                        </form>
+                    </li>
+                    <li class="OGameClock">15.09.2026 04:54:19</li>
+                </ul>
+            </div>
+        </div>
+                <div id="resourcesbarcomponent" class="">
+            <div id="resources">
+                                    <div class="ogx-vr-legacy">
+                        <div class="ogx-vr-col">
+                            <div class="ogx-vr-label">Weapons</div>
+                            <div id="crystal_box" class="crystal tooltipHTML ipiHintable tpd-hideOnClickOutside ogx-vr-value"
+                                 title="Weapons|<table class=&quot;resourceTooltip&quot;><tr><th>Available:</th><td><span class=&quot;&quot;>10,000</span></td></tr><tr><th>Storage capacity</th><td><span class=&quot;&quot;>10,000</span></td></tr><tr><th>Current production:</th><td><span class=&quot;undermark&quot;>+29901</span></td></tr><tr><th>Safe:</th><td><span class=&quot;middlemark&quot;>1,000</span></td></tr></table>"
+                                 data-ipi-hint="ipiResourcecrystal">
+                                <span id="resources_crystal" class="overmark" data-raw="10000">10,000</span>
+                                <div class="resourceIcon crystal"></div>
+                            </div>
+                        </div>
+
+                        <div class="ogx-vr-col">
+                            <div class="ogx-vr-label">Ammo</div>
+                            <div id="metal_box" class="metal tooltipHTML ipiHintable tpd-hideOnClickOutside ogx-vr-value"
+                                 title="Ammo|<table class=&quot;resourceTooltip&quot;><tr><th>Available:</th><td><span class=&quot;&quot;>10,000</span></td></tr><tr><th>Storage capacity</th><td><span class=&quot;&quot;>10,000</span></td></tr><tr><th>Current production:</th><td><span class=&quot;undermark&quot;>+29901</span></td></tr><tr><th>Safe:</th><td><span class=&quot;middlemark&quot;>1,000</span></td></tr></table>"
+                                 data-ipi-hint="ipiResourcemetal">
+                                <span id="resources_metal" class="overmark" data-raw="10000">10,000</span>
+                                <div class="resourceIcon metal"></div>
+                            </div>
+                        </div>
+
+                        <div class="ogx-vr-col">
+                            <div class="ogx-vr-label">Alcohol</div>
+                            <div id="energy_box" class="energy tooltipHTML ipiHintable tpd-hideOnClickOutside ogx-vr-value"
+                                 title="Alcohol|<table class=&quot;resourceTooltip&quot;><tr><th>Available:</th><td><span class=&quot;&quot;>10,000</span></td></tr><tr><th>Current production:</th><td><span class=&quot;undermark&quot;>+24,867</span></td></tr><tr><th>Safe:</th><td><span class=&quot;middlemark&quot;>1,000</span></td></tr></table>"
+                                 data-ipi-hint="ipiResourceenergy">
+                                <span id="resources_energy" class="" data-raw="10000">10,000</span>
+                                <div class="resourceIcon energy"></div>
+                            </div>
+                        </div>
+
+                        <div class="ogx-vr-col">
+                            <div class="ogx-vr-label">Cash</div>
+                            <div id="deuterium_box" class="deuterium tooltipHTML ipiHintable tpd-hideOnClickOutside ogx-vr-value"
+                                 title="Cash|<table class=&quot;resourceTooltip&quot;><tr><th>Available:</th><td><span class=&quot;&quot;>10,000</span></td></tr><tr><th>Storage capacity</th><td><span class=&quot;&quot;>10,000</span></td></tr><tr><th>Current production:</th><td><span class=&quot;undermark&quot;>+0</span></td></tr><tr><th>Safe:</th><td><span class=&quot;middlemark&quot;>1,000</span></td></tr></table>"
+                                 data-ipi-hint="ipiResourcedeuterium">
+                                <span id="resources_deuterium" class="overmark" data-raw="10000">10,000</span>
+                                <div class="resourceIcon deuterium"></div>
+                            </div>
+                        </div>
+
+                        <div class="ogx-vr-col ogx-vr-col-time">
+                            <div class="ogx-vr-label">Server time</div>
+                            <div class="ogx-vr-value ogx-vr-servertime">
+                                <span class="OGameClock">2026-09-15 04:54:19</span>
+                                <button id="ogxMobileMenuToggle" type="button" aria-controls="left" aria-expanded="false" aria-label="Open menu">
+                                    <span class="ogx-mobile-menu-toggle__line"></span>
+                                    <span class="ogx-mobile-menu-toggle__line"></span>
+                                    <span class="ogx-mobile-menu-toggle__line"></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        
+                        <div class="resource_tile darkmatter ogx-vr-hidden">
+                            <div id="darkmatter_box" class="darkmatter tooltipHTML resource ipiHintable tpd-hideOnClickOutside"
+                                 title="Itas|<table class=&quot;resourceTooltip&quot;><tr><th>Available:</th><td><span class=&quot;&quot;>8,000</span></td></tr></table>"
+                                 data-tooltip-button="Purchase Dark Matter" data-ipi-hint="ipiResourcedarkmatter">
+                                <span id="resources_darkmatter" data-raw="8000" class="overlay">8,000</span>
+                                <div class="resourceIcon darkmatter"></div>
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+        </div>
+        <div id="commandercomponent" class="">
+            <!-- <div id="lifeform" class="fleft">
+                <a href="#TODO_page=ingame&amp;component=lfsettings" class="tooltipHTML js_hideTipOnMobile ipiHintable"
+                   title="Lifeform|No lifeforms
+" data-ipi-hint="ipiLifeformSettings">
+                    <div class="resourceIcon population"></div>
+                </a>
+            </div> -->
+            <div id="characterclass" class="fleft">
+                                <a href="https://vendettalegacy.es/characterclass"
+                   class="tooltipHTML js_hideTipOnMobile ipiHintable"
+                   title="No class selected| Click to select a character class"
+                   data-ipi-hint="ipiCharacterclassSettings">
+                    <div class="sprite characterclass medium none"></div>
+                </a>
+            </div>
+            <div id="officers" class="  fright">
+                <a href="#TODO_=premium&amp;openDetail=2" class="tooltipHTML   commander js_hideTipOnMobile "
+                   title="Hire commander|+40 favorites, building queue, shortcuts, transport scanner, advertisement-free* <span style='font-size: 10px; line-height: 10px'>(*excludes: game related references)</span>">
+                    <img src="/img/layout/pixel.gif" width="30" height="30">
+                </a>
+                <a href="#TODO_page=premium&amp;openDetail=3" class="tooltipHTML    admiral js_hideTipOnMobile "
+                   title="Hire admiral|Max. fleet slots +2,
+Max. expeditions +1,
+Improved fleet escape rate,
+Combat simulation save slots +20">
+                    <img src="/img/layout/pixel.gif" width="30" height="30">
+                </a>
+                <a href="#TODO_page=premium&amp;openDetail=4" class="tooltipHTML    engineer js_hideTipOnMobile "
+                   title="Hire engineer|Halves losses to defenses, +10% energy production">
+                    <img src="/img/layout/pixel.gif" width="30" height="30">
+                </a>
+                <a href="#TODO_page=premium&amp;openDetail=5" class="tooltipHTML    geologist js_hideTipOnMobile "
+                   title="Hire geologist|+10% mine production">
+                    <img src="/img/layout/pixel.gif" width="30" height="30">
+                </a>
+                <a href="#TODO_page=premium&amp;openDetail=6" class="tooltipHTML    technocrat js_hideTipOnMobile "
+                   title="Hire technocrat|+2 espionage levels, 25% less research time">
+                    <img src="/img/layout/pixel.gif" width="30" height="30">
+                </a>
+            </div>
+        </div>
+        <div id="notificationbarcomponent" class="">
+            <div id="message-wrapper">
+                <a class=" comm_menu messages tooltip js_hideTipOnMobile"
+                   href="https://vendettalegacy.es/messages"
+                   title="34 unread message(s)">
+                                            <span class="new_msg_count totalMessages  news"
+                              data-new-messages="34">
+                                34
+                            </span>
+                                    </a>
+                <!-- Neue Chatnachrichten-Zähler -->
+                <a class="comm_menu chat tooltip js_hideTipOnMobile"
+                   href="https://vendettalegacy.es/chat"
+                   title="0 unread message(s)">
+                    <!-- js modification !-->
+                    <span class="new_msg_count totalChatMessages  noMessage " data-new-messages="0">
+                    0                </span>
+                </a>
+                <div id="messages_collapsed">
+                    <div id="eventboxFilled" class="eventToggle" style="display: none;">
+                        <a id="js_eventDetailsClosed" class="tooltipRight js_hideTipOnMobile"
+                           href="javascript:void(0);"
+                           title="More details"></a>
+                        <a id="js_eventDetailsOpen" class="tooltipRight open js_hideTipOnMobile"
+                           href="javascript:void(0);"
+                           title="Less detail"></a>
+
+
+                    </div>
+                    <div id="eventboxLoading" class="textCenter textBeefy" style="display: block;">
+                        <img height="16" width="16"
+                             src="/img/icons/3f9884806436537bdec305aa26fc60.gif"/>load...
+                    </div>
+                    <div id="eventboxBlank" class="textCenter" style="display: none;">
+                        No fleet movement
+                    </div>
+                </div>
+            
+                <div id="attack_alert" class=" noAttack "
+                     >
+                                    </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="left" class="ogx-vp-left-single">
+        <div id="toolbarcomponent" class="">
+            <div id="links" class="ogx-vp-sidebar-shell">
+                                    <div class="ogx-vp-sidebar-alerts">
+                        <div class="ogx-vp-sidebar-alerts-title">Avisos</div>
+                                                    <a href="https://vendettalegacy.es/messages?tab=communication&amp;subtab=messages" class="ogx-vp-sidebar-alert ">
+                                <span>Comunicación oficial del servidor</span>
+                                <b>34</b>
+                            </a>
+                                            </div>
+                                                <button type="button" class="ogx-vp-menu-datetime-bar" id="ogxVpSessionClockBtn"
+                        data-session-status-url="https://vendettalegacy.es/ajax/ingame/session-status"
+                        data-str-connected="Connected to server."
+                        data-str-disconnected="Offline: could not reach the server."
+                        data-str-session-expired="Session invalid or expired. Reload the page to log in again."
+                        data-str-idle-hint="Every action resets the idle timer (12 hours)."
+                        data-str-close="Close"
+                        aria-haspopup="dialog"
+                        aria-controls="ogxVpSessionDialog"
+                        aria-label="View server time and session expiry">
+                    <span class="ogx-vp-menu-datetime-label">Server session</span>
+                </button>
+                <ul id="menuTable" class="leftmenu ogx-vp-sidebar-menu ogx-vp-sidebar--docs-dark">
+                                        <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage overview "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/overview"><span class="textlabel">Overview</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage resources "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/overview/buildings"><span class="textlabel">Buildings</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage resources "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/resources"><span class="textlabel">Rooms</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage shipyard "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/shipyard"><span class="textlabel">Recruitment</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage shipyard "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/shipyard/masivo"><span class="textlabel">Mass recruitment</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage defense "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/defense"><span class="textlabel">Security</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage station "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/facilities"><span class="textlabel">Training</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage marketplace"></div></span>
+                        <a class="menubutton overlay"
+                           href="https://vendettalegacy.es/overlay/search"
+                           data-overlay-title="Search Universe"
+                           data-overlay-close="__default closeSearch"
+                           data-overlay-class="search"><span class="textlabel">Search</span></a>
+                    </li>
+                                        <li class="ogx-vp-nav-row ogx-vp-sidebar-coords">
+                        <div class="ogx-vp-planet-switcher">
+                            <button type="button"
+                                    class="ogx-vp-planet-nav ogx-vp-planet-nav--prev"
+                                    title="Switch planet"
+                                    aria-label="Switch planet — Previous">&lt;</button>
+                            <div class="ogx-vp-coords-box ogx-vp-coords-box--legacy">
+                                <label class="ogx-vp-sr-only" for="ogxVpPlanetSwitch">Switch planet</label>
+                                <div class="ogx-vp-coords-facade" aria-hidden="true">
+                                    <span class="ogx-vp-coords-sliver">
+                                        <img src="https://vendettalegacy.es/img/planets/medium/water_9.png"
+                                             width="32" height="28" alt="" decoding="async"/>
+                                    </span>
+                                    <span class="ogx-vp-coords-text" id="ogxVpCoordsDisplay">[1:4:1]</span>
+                                    <span class="ogx-vp-coords-jump" role="presentation">
+                                        <span class="ogx-vp-coords-jump-inner"></span>
+                                    </span>
+                                    <span class="ogx-vp-coords-dd-arrow" role="presentation"></span>
+                                </div>
+                                <select id="ogxVpPlanetSwitch"
+                                       class="ogx-vp-coords-select"
+                                       onchange="if (this.value) { window.location.href = this.value; }">
+                                                                            <option value="http://vendettalegacy.es/fleet?cp=1921&amp;city=1&amp;district=4&amp;slot=60&amp;type=1" selected>
+                                            [1:4:1]
+                                        </option>
+                                                                    </select>
+                                <button type="button"
+                                        class="ogx-vp-coords-trigger"
+                                        aria-haspopup="listbox"
+                                        aria-expanded="false"
+                                        title="Switch planet">
+                                    <span class="ogx-vp-sr-only">Switch planet</span>
+                                </button>
+                            </div>
+                            <button type="button"
+                                    class="ogx-vp-planet-nav ogx-vp-planet-nav--next"
+                                    title="Switch planet"
+                                    aria-label="Switch planet — Next">&gt;</button>
+                        </div>
+                        <script>
+                            (function () {
+                                var s = document.getElementById('ogxVpPlanetSwitch');
+                                if (!s) return;
+                                var row = s.closest('.ogx-vp-planet-switcher');
+                                if (!row) return;
+                                var box = s.closest('.ogx-vp-coords-box');
+                                var trigger = box ? box.querySelector('.ogx-vp-coords-trigger') : null;
+                                var label = document.getElementById('ogxVpCoordsDisplay');
+                                var dropdown = null;
+                                function closeCoordsMenu() {
+                                    if (dropdown) {
+                                        dropdown.hidden = true;
+                                    }
+                                    if (trigger) {
+                                        trigger.setAttribute('aria-expanded', 'false');
+                                    }
+                                }
+                                function positionCoordsMenu() {
+                                    if (!dropdown || !box) return;
+                                    var rect = box.getBoundingClientRect();
+                                    var gap = 2;
+                                    var viewportGap = 8;
+                                    var spaceBelow = window.innerHeight - rect.bottom - viewportGap;
+                                    var spaceAbove = rect.top - viewportGap;
+                                    var maxHeight = Math.max(120, Math.min(320, spaceBelow));
+                                    var top = rect.bottom + gap;
+                                    if (spaceBelow < 180 && spaceAbove > spaceBelow) {
+                                        maxHeight = Math.max(120, Math.min(320, spaceAbove));
+                                        top = rect.top - maxHeight - gap;
+                                    }
+                                    dropdown.style.left = rect.left + 'px';
+                                    dropdown.style.top = Math.max(viewportGap, top) + 'px';
+                                    dropdown.style.width = rect.width + 'px';
+                                    dropdown.style.maxHeight = maxHeight + 'px';
+                                }
+                                function ensureCoordsMenu() {
+                                    if (dropdown) return dropdown;
+                                    dropdown = document.createElement('div');
+                                    dropdown.className = 'ogx-vp-coords-menu';
+                                    dropdown.setAttribute('role', 'listbox');
+                                    dropdown.hidden = true;
+                                    Array.prototype.forEach.call(s.options, function (option, index) {
+                                        var item = document.createElement('button');
+                                        item.type = 'button';
+                                        item.className = 'ogx-vp-coords-menu__item';
+                                        item.textContent = option.text;
+                                        item.setAttribute('role', 'option');
+                                        if (index === s.selectedIndex) {
+                                            item.className += ' ogx-vp-coords-menu__item--active';
+                                            item.setAttribute('aria-selected', 'true');
+                                        }
+                                        item.addEventListener('click', function () {
+                                            s.selectedIndex = index;
+                                            syncCoordsLabel();
+                                            if (option.value) {
+                                                window.location.href = option.value;
+                                            }
+                                        });
+                                        dropdown.appendChild(item);
+                                    });
+                                    document.body.appendChild(dropdown);
+                                    return dropdown;
+                                }
+                                function openCoordsMenu(ev) {
+                                    if (ev) {
+                                        ev.preventDefault();
+                                        ev.stopPropagation();
+                                    }
+                                    ensureCoordsMenu();
+                                    positionCoordsMenu();
+                                    dropdown.hidden = false;
+                                    if (trigger) {
+                                        trigger.setAttribute('aria-expanded', 'true');
+                                    }
+                                    var active = dropdown.querySelector('.ogx-vp-coords-menu__item--active');
+                                    if (active) {
+                                        active.scrollIntoView({ block: 'center' });
+                                    }
+                                }
+                                if (trigger) {
+                                    trigger.addEventListener('click', function (ev) {
+                                        if (dropdown && !dropdown.hidden) {
+                                            closeCoordsMenu();
+                                            return;
+                                        }
+                                        openCoordsMenu(ev);
+                                    });
+                                    document.addEventListener('click', function (ev) {
+                                        if (!dropdown || dropdown.hidden) return;
+                                        if ((box && box.contains(ev.target)) || dropdown.contains(ev.target)) return;
+                                        closeCoordsMenu();
+                                    });
+                                    window.addEventListener('resize', positionCoordsMenu);
+                                    window.addEventListener('scroll', positionCoordsMenu, true);
+                                    document.addEventListener('keydown', function (ev) {
+                                        if (ev.key === 'Escape') closeCoordsMenu();
+                                    });
+                                }
+                                function syncCoordsLabel() {
+                                    if (!label || s.selectedIndex < 0) return;
+                                    label.textContent = s.options[s.selectedIndex].text;
+                                }
+                                s.addEventListener('change', syncCoordsLabel);
+                                function step(delta) {
+                                    if (s.options.length <= 1) return;
+                                    var i = s.selectedIndex + delta;
+                                    if (i < 0 || i >= s.options.length) return;
+                                    s.selectedIndex = i;
+                                    syncCoordsLabel();
+                                    if (s.value) window.location.href = s.value;
+                                }
+                                function isTextEntryTarget(el) {
+                                    if (!el || !el.tagName) return false;
+                                    if (el.isContentEditable) return true;
+                                    var tag = el.tagName.toUpperCase();
+                                    if (tag === 'TEXTAREA') return true;
+                                    if (tag === 'SELECT' && el.id !== 'ogxVpPlanetSwitch') return true;
+                                    if (tag !== 'INPUT') return false;
+                                    var type = (el.getAttribute('type') || 'text').toLowerCase();
+                                    return type === 'text'
+                                        || type === 'search'
+                                        || type === 'password'
+                                        || type === 'email'
+                                        || type === 'url'
+                                        || type === 'tel';
+                                }
+                                function shouldIgnorePlanetArrowKeys(ev) {
+                                    if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') {
+                                        return true;
+                                    }
+                                    if (ev.ctrlKey || ev.altKey || ev.metaKey) {
+                                        return true;
+                                    }
+                                    var target = ev.target;
+                                    if (!target) {
+                                        return false;
+                                    }
+                                    if (target.closest) {
+                                        if (target.closest('.ui-dialog')) return true;
+                                        if (target.closest('.ogx-vp-session-dialog:not([hidden])')) return true;
+                                        if (target.closest('.chat_box_textarea')) return true;
+                                        if (target.closest('#ogxVoDetailOverlay:not([aria-hidden="true"])')) return true;
+                                    }
+                                    return isTextEntryTarget(target);
+                                }
+                                function handlePlanetArrowKey(ev) {
+                                    if (shouldIgnorePlanetArrowKeys(ev)) {
+                                        return;
+                                    }
+                                    ev.preventDefault();
+                                    ev.stopPropagation();
+                                    if (typeof ev.stopImmediatePropagation === 'function') {
+                                        ev.stopImmediatePropagation();
+                                    }
+                                    step(ev.key === 'ArrowLeft' ? -1 : 1);
+                                }
+                                row.querySelector('.ogx-vp-planet-nav--prev').addEventListener('click', function () { step(-1); });
+                                row.querySelector('.ogx-vp-planet-nav--next').addEventListener('click', function () { step(1); });
+                                if (window.__ogxVpPlanetArrowKeyHandler) {
+                                    document.removeEventListener('keydown', window.__ogxVpPlanetArrowKeyHandler, true);
+                                }
+                                window.__ogxVpPlanetArrowKeyHandler = handlePlanetArrowKey;
+                                document.addEventListener('keydown', handlePlanetArrowKey, true);
+                            })();
+                        </script>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage research "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/techtree?type=hab"><span class="textlabel">Technology tree</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage alliance "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/alliance"><span class="textlabel">Family</span></a>
+                    </li>
+                                        <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage resources "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/resources/recursos"><span class="textlabel">RESOURCES</span></a>
+                    </li>
+                                                                                <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage galaxy "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/mapa?cp=1921"><span class="textlabel">Map</span></a>
+                    </li>
+                                        <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage fleet1 highlighted"></div></span>
+                        <a class="menubutton selected"
+                           href="https://vendettalegacy.es/fleet"><span class="textlabel">Missions</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage fleet2 "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/battle-sim"><span class="textlabel">Battle simulator</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage empire "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/granjas"><span class="textlabel">Farm list</span></a>
+                    </li>
+                                                            <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage traderOverview "></div></span>
+                        <a class="menubutton premiumHighligt "
+                           href="https://vendettalegacy.es/merchant"><span class="textlabel">Market</span></a>
+                    </li>
+                                                            <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true">
+                            <span class="ogx-vp-padrino-logo">
+                                <span class="ogx-vp-padrino-logo-ring" aria-hidden="true"></span>
+                                <div class="menuImage premium "></div>
+                            </span>
+                        </span>
+                        <a class="menubutton premiumHighligt ogx-vp-padrino-link "
+                           href="https://vendettalegacy.es/padrino"><span class="textlabel">Sponsor</span></a>
+                    </li>
+                                                                                <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage rewarding "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/messages"><span class="textlabel">Messages</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage premium "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/chat"><span class="textlabel">Global chat</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage empire "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/buddies"><span class="textlabel">Friends</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage rewarding "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/records"><span class="textlabel">Records</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage fleet1"></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/rules"><span class="textlabel">Rules</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage alliance "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/highscore?category=2"><span class="textlabel">Ranking</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage alliance "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/highscore/servers"><span class="textlabel">Server Rankings</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage rewarding "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/salon-de-la-fama"><span class="textlabel">Hall of Fame</span></a>
+                    </li>
+                    <li class="ogx-vp-sidebar-spacer" role="presentation" aria-hidden="true"></li>
+                    <li class="ogx-vp-nav-row ogx-vp-nav-row--footer">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage station "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/options"><span class="textlabel">Options</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row ogx-vp-nav-row--footer">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage rewarding "></div></span>
+                        <a class="menubutton "
+                           href="https://vendettalegacy.es/suggestions"><span class="textlabel">Suggestions</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row ogx-vp-nav-row--footer">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage shop"></div></span>
+                        <a class="menubutton overlay"
+                           href="https://vendettalegacy.es/overlay/bug-report"
+                           data-overlay-title="Report a bug"
+                           data-overlay-popup-width="520"
+                           data-overlay-popup-height="580"><span class="textlabel">Report a bug</span></a>
+                    </li>
+                    <li class="ogx-vp-nav-row ogx-vp-nav-row--footer">
+                        <span class="menu_icon ogx-vp-nav-icon" aria-hidden="true"><div class="menuImage grayscale"></div></span>
+                        <a class="menubutton" href="#"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="textlabel">Log out</span></a>
+                    </li>
+                </ul>
+
+                <div id="toolLinksWrapper">
+                    <ul id="menuTableTools" class="leftmenu"></ul>
+                </div>
+                <br class="clearfloat">
+            </div>
+        </div>
+        <div id="advicebarcomponent" class="">
+            <div class="adviceWrapper">
+
+                <div id="advice-bar">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="middle">
+        <div id="eventlistcomponent" class="">
+            <div id="eventboxContent" style="display: none;">
+            </div>
+
+            <script type="text/javascript">
+                var session = "3c442273a6de4c8f79549e78f4c3ca50e7ea7580";
+                var vacation = 0;
+                var timerHandler = new TimerHandler();
+
+                function redirectPremium() {
+                    location.href = "https://vendettalegacy.es/premium?showDarkMatter=1#TODO_premium&showDarkMatter=1";
+                }
+
+                var playerId = "124";
+                var playerName = "profe matias prestes";
+                var player = {
+                    "playerId": 124,
+                    "name": "profe matias prestes",
+                    "hasCommander": false,
+                    "hasAPassword": true
+                };
+                var hasAPassword = true;
+                var jsloca = {"INTERNAL_ERROR":"A previously unknown error has occurred. Unfortunately your last action couldn't be executed!","LOCA_ALL_YES":"yes","LOCA_ALL_NO":"No","LOCA_NOTIFY_ERROR":"Error","LOCA_NOTIFY_INFO":"Info","LOCA_NOTIFY_SUCCESS":"Success","LOCA_NOTIFY_WARNING":"Warning","COMBATSIM_PLANNING":"Planning","COMBATSIM_PENDING":"Simulation running...","COMBATSIM_DONE":"Complete","MSG_RESTORE":"restore","MSG_DELETE":"delete","COPIED_TO_CLIPBOARD":"Copied to clipboard","LOCA_ALL_NETWORK_ATTENTION":"Caution","LOCA_NETWORK_MSG_GAMEOPERATOR":"Report this message to a game operator?"};
+                var session = "3c442273a6de4c8f79549e78f4c3ca50e7ea7580";
+                var isMobile = false;
+                var isMobileApp = false;
+                var isMobileOnly = false;
+                var isFacebookUser = false;
+                var overlayWidth = 770;
+                var overlayHeight = 600;
+                var isRTLEnabled = 0;
+                var activateToken = "e018389e3827e1499e41d35e3c811283";
+                var miniFleetToken = "4002a42efaeb2808f6c232594fb09aa4";
+                var currentPage = "overview";
+                // BBCode preview is handled client-side with custom parser (buddyBBCodeParser)
+                // Empty string prevents CORS errors while custom handlers override the preview
+                var bbcodePreviewUrl = "";
+                var popupWindows = [];
+                var fleetDeutSaveFactor = 1;
+                var honorScore = 0;
+                var darkMatter = 0;
+                var serverTime = new Date('2026-09-15 04:54:19');
+                var localTime = new Date();
+                var timeDiff = serverTime - localTime;
+                localTS = localTime.getTime();
+                var startServerTime = localTime.getTime() - (0) - localTime.getTimezoneOffset() * 60 * 1000;
+                var LocalizationStrings = {"timeunits":{"short":{"year":"y","month":"m","week":"w","day":"d","hour":"h","minute":"m","second":"s"}},"status":{"ready":"done"},"decimalPoint":".","thousandSeperator":",","unitMega":"M","unitKilo":"K","unitMilliard":"B","question":"Question","error":"Error","loading":"load...","yes":"yes","no":"No","ok":"Ok","attention":"Caution","outlawWarning":"You are about to attack a stronger player. If you do this, your attack defenses will be shut down for 7 days and all players will be able to attack you without punishment. Are you sure you want to continue?","lastSlotWarningMoon":"This building will use the last available building slot. Expand your Lunar Base to receive more space. Are you sure you want to build this building?","lastSlotWarningPlanet":"This building will use the last available building slot. Expand your Terraformer or buy a Planet Field item to obtain more slots. Are you sure you want to build this building?","forcedVacationWarning":"Some game features are unavailable until your account is validated.","moreDetails":"More details","lessDetails":"Less detail","planetOrder":{"lock":"Lock arrangement","unlock":"Unlock arrangement"},"darkMatter":"Dark Matter","activateItem":{"upgradeItemQuestion":"Would you like to replace the existing item? The old bonus will be lost in the process.","upgradeItemQuestionHeader":"Replace item?"}};
+                var constants = {
+                    "espionage": 6,
+                    "missleattack": 10,
+                    "language": "en",
+                    "name": "144"
+                };
+                var userData = {
+                    "id": "108130"
+                };
+                var missleAttackLink = "https://vendettalegacy.es/overview#TODO_page=missileattacklayer&width=669&height=250";
+                var changeNickLink = "https://vendettalegacy.es/overlay/changenick";
+                var showOutlawWarning = true;
+                window.ogxIngameWarnings = {"outlaw":true,"last_slot_building":true,"vacation_mode":true,"username_change":true,"planet_move":true};
+                if (window.ogxIngameWarnings.last_slot_building === false && typeof doUpgrade === 'function') {
+                    var ogxOrigDoUpgrade = doUpgrade;
+                    doUpgrade = function (technologyId, planetId, mode, listId, showSlotWarning) {
+                        return ogxOrigDoUpgrade(technologyId, planetId, mode, listId, false);
+                    };
+                }
+                var miniFleetLink = "https://vendettalegacy.es/ajax/fleet/dispatch/send-mini-fleet";
+                var ogameUrl = "https:\/\/vendettalegacy.es";
+                var startpageUrl = "https:\/\/vendettalegacy.es";
+                // Laravel Reverb / Echo configuration for real-time chat
+                var reverbAppKey = "";
+                var reverbHost = "localhost";
+                var reverbPort = "8080";
+                var reverbScheme = "http";
+                var chatUrl = "https://vendettalegacy.es/chat/send";
+                var chatHistoryUrl = "https://vendettalegacy.es/chat/history";
+                var chatUrlLoadMoreMessages = "https://vendettalegacy.es/chat/more";
+                var chatLoca = {"TEXT_EMPTY":"Where is the message?","TEXT_TOO_LONG":"The message is too long.","SAME_USER":"You cannot write to yourself.","IGNORED_USER":"You have ignored this player.","NO_DATABASE_CONNECTION":"A previously unknown error has occurred. Unfortunately your last action couldn't be executed!","INVALID_PARAMETERS":"A previously unknown error has occurred. Unfortunately your last action couldn't be executed!","SEND_FAILED":"A previously unknown error has occurred. Unfortunately your last action couldn't be executed!","LOCA_ALL_ERROR_NOTACTIVATED":"This function is only available after your accounts activation.","X_NEW_CHATS":"#+# unread message(s)","MORE_USERS":"show more"};
+                var eventboxLoca = {"mission":"Mission","missions":"Missions","next misson":"DUMMY_KEY_N\u00e4chster_fertig","type":"DUMMY_KEY_Art","friendly":"own","neutral":"friendly","hostile":"hostile","nextEvent":"Next","nextEventText":"Type"};
+
+                var ajaxEventboxURI = "https://vendettalegacy.es/ajax/fleet/eventbox/fetch";
+                var ajaxRecallFleetURI = "https://vendettalegacy.es/ajax/fleet/dispatch/recall-fleet";
+                var currentSpaceObjectId = 33624092;
+                var ajaxReloadComponentURI = "#TODO_index.php?page=standalone&ajax=1";
+
+                function redirectLogout() {
+                    location.href = "https://vendettalegacy.es/overview";
+                }
+
+                function redirectOverview() {
+                    location.href = "https://vendettalegacy.es/overview";
+                }
+
+                function redirectPlatformLogout() {
+                    location.href = "https://vendettalegacy.es/overview";
+                }
+
+                function redirectSpaceDock() {
+                    location.href = "https://vendettalegacy.es/facilities?openTech=36";
+                }
+
+                // Global function to open facilities and trigger space dock click
+                function openFacilitiesSpaceDock() {
+                    // Store a flag to trigger space dock click after page loads
+                    sessionStorage.setItem('triggerSpaceDock', 'true');
+
+                    // Redirect to facilities page with parameter as backup
+                    location.href = "https://vendettalegacy.es/facilities?openSpaceDock=1";
+                }
+
+                // Global function to open wreck field details popup
+                function openWreckFieldDetailsPopup() {
+                    // Make AJAX call to get wreck field details popup content
+                    $.ajax({
+                        url: "https://vendettalegacy.es/ajax/facilities/wreck-field-status",
+                        method: 'GET',
+                        success: function(response) {
+                            if (response.success && response.wreckField) {
+                                // Create popup content similar to the Details button
+                                createWreckFieldPopup(response.wreckField);
+                            } else {
+                                // Fallback: go to facilities and trigger space dock
+                                openFacilitiesSpaceDock();
+                            }
+                        },
+                        error: function() {
+                            // Fallback: go to facilities and trigger space dock
+                            openFacilitiesSpaceDock();
+                        }
+                    });
+                }
+
+                // Function to create wreck field popup content
+                function createWreckFieldPopup(wreckFieldData) {
+                    const timeRemaining = wreckFieldData.time_remaining || 0;
+                    const shipCount = wreckFieldData.ship_data ? wreckFieldData.ship_data.reduce((total, ship) => total + ship.quantity, 0) : 0;
+
+                    let timeDisplay = '';
+                    if (timeRemaining > 0) {
+                        const days = Math.floor(timeRemaining / 86400);
+                        const hours = Math.floor((timeRemaining % 86400) / 3600);
+                        const minutes = Math.floor((timeRemaining % 3600) / 60);
+                        const seconds = timeRemaining % 60;
+                        timeDisplay = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                    }
+
+                    // Create proper popup content matching facilities page
+                    let shipHtml = '';
+                    if (wreckFieldData.ship_data && wreckFieldData.ship_data.length > 0) {
+                        wreckFieldData.ship_data.forEach(ship => {
+                            const shipName = ship.machine_name ? ship.machine_name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Unknown Ship';
+                            const totalQuantity = ship.quantity || 0;
+                            const repairProgress = wreckFieldData.repair_progress || 0;
+                            const repairedCount = wreckFieldData.is_repairing ?
+                                Math.floor(totalQuantity * (repairProgress / 100)) : 0;
+
+                            // Calculate real-time repair progress if repairs are active
+                            let currentRepairedCount = repairedCount;
+                            if (wreckFieldData.is_repairing && wreckFieldData.remaining_repair_time >= 0 && wreckFieldData.repair_completion_time && wreckFieldData.repair_started_at) {
+                                const totalRepairTime = (new Date(wreckFieldData.repair_completion_time).getTime() - new Date(wreckFieldData.repair_started_at).getTime()) / 1000;
+                                const elapsedTime = totalRepairTime - wreckFieldData.remaining_repair_time;
+                                const currentProgress = Math.min(100, Math.max(0, (elapsedTime / totalRepairTime) * 100));
+                                currentRepairedCount = Math.floor(totalQuantity * (currentProgress / 100));
+                            }
+
+                            // Map machine names to ship IDs for CSS background positioning
+                            const shipIdMap = {
+                                'fighter_light': '204',
+                                'light_fighter': '204',
+                                'fighter_heavy': '205',
+                                'heavy_fighter': '205',
+                                'cruiser': '206',
+                                'battleship': '207',
+                                'battle_ship': '207',
+                                'battlecruiser': '215',
+                                'interceptor': '215',
+                                'bomber': '211',
+                                'destroyer': '213',
+                                'deathstar': '214',
+                                'reaper': '218',
+                                'crawler': '217',
+                                'pathfinder': '219',
+                                'transporter_small': '202',
+                                'small_cargo': '202',
+                                'transporter_large': '203',
+                                'large_cargo': '203',
+                                'colony_ship': '208',
+                                'recycler': '209',
+                                'espionage_probe': '210',
+                                'solar_satellite': '212'
+                            };
+
+                            const shipId = shipIdMap[ship.machine_name] || '204';
+
+                            // Use different display format based on repair status
+                            if (wreckFieldData.is_repairing) {
+                                // During repairs: show progress like "102/451"
+                                shipHtml += `
+                                    <div class="tooltipHTML fleft ships" id="ship${shipId}" data-tooltip-title="${shipName}|${currentRepairedCount}/${totalQuantity}" title="${shipName}">
+                                        <span class="ecke">
+                                            <span class="level">${currentRepairedCount}/${totalQuantity}</span>
+                                        </span>
+                                    </div>
+                                `;
+                            } else {
+                                // Before repairs: show single quantity like "350"
+                                const repairTime = '32m 0s'; // TODO: Calculate based on ship count and dock level
+                                shipHtml += `
+                                    <div class="tooltip fleft ships" id="ship${shipId}" title="${shipName}">
+                                        <span class="ecke">
+                                            <span class="level">${totalQuantity}</span>
+                                        </span>
+                                        <div class="repairTime">
+                                            <span style="color: whitesmoke">${repairTime}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        });
+                    }
+
+                    const popupContent = `
+                        <div id="repairlayer">
+                            <div class="repairableShips">
+                                ${wreckFieldData.is_repairing ?
+                                    // During repairs: show minimal content
+                                    `<span>There is no wreckage at this position.</span>` :
+                                    // Before repairs: show full description
+                                    `<div>
+                                        <div class="descriptionText">Electronic charges flicker through defective drive units, atmosphere escapes from the wrecks of destroyed ships and is released into space. Huge gaping holes can be seen in the burned out hulls and empty escape capsules whirl around the room. So many ships have fallen victim to the great battle!
+
+However, the Space Dock's engineers think that some of the remains can be salvaged, before the wreckage enters the atmosphere and ultimately burns up. The repair crews are ready.</div>
+                                        <div class="rightArea">
+                                            <div class="boxed">
+                                                <p>Wreckage burns up in: </p>
+                                                <p id="burnUpCountDownForRepairOverlay" data-duration="${timeRemaining}">${timeDisplay}</p>
+                                            </div>
+                                            <br>
+                                            ${!wreckFieldData.is_repairing && !wreckFieldData.is_completed && wreckFieldData.can_repair ?
+                                            `<div class="btn btn_dark fright burnUpButton">
+                                                <input type="button" class="overmark burnUpButton" value="Leave to burn up" data-loca_box_text="Leave to burn up" data-loca_decision_text="The wreckage will descend into the planet's atmosphere and burn up. Once struck, a repair will no longer be possible. Are you sure you want to burn up the wreckage?" data-loca_yes="yes" data-loca_no="No" onclick="goToSpaceDockAndBurnUp();">
+                                            </div>` : ''
+                            }
+                                        </div>
+                                    </div>`
+                                }
+                                <div class="clearfix"></div>
+                                <br>
+                                <hr style="height: 2px; width: 644px; margin: 5.5px 0; background-color: #ffffff; border: none;">
+                                <h3>${wreckFieldData.is_repairing ? 'Ships being repaired:' : 'Repairable ships:'}</h3>
+                                <div class="ships_wrapper clearfix">
+                                    ${shipHtml}
+                                    <div class="clearfix"></div>
+                                    <br>
+                                    ${wreckFieldData.is_repairing ?
+                                        // During repairs: show repair time remaining and collection button
+                                        (() => {
+                                            const remainingTime = wreckFieldData.remaining_repair_time || 0;
+
+                                            // If repairs are complete (remainingTime === 0), show auto-return date/time
+                                            let timeDisplay;
+                                            let timeLabel = 'Repair time remaining: ';
+                                            if (remainingTime === 0 && wreckFieldData.repair_started_at && wreckFieldData.total_repair_time > 0) {
+                                                // Calculate auto-return time (72 hours after repair completion)
+                                                const repairStartTime = new Date(wreckFieldData.repair_started_at);
+                                                const totalRepairTime = wreckFieldData.total_repair_time;
+                                                const repairCompletionTime = new Date(repairStartTime.getTime() + (totalRepairTime * 1000));
+                                                const autoReturnTime = new Date(repairCompletionTime.getTime() + (72 * 60 * 60 * 1000)); // 72 hours later
+
+                                                // Format the date/time
+                                                const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                                                timeDisplay = autoReturnTime.toLocaleDateString('en-US', options);
+                                                timeLabel = 'Ships will be automatically put back into service on: ';
+                                            } else {
+                                                const hours = Math.floor(remainingTime / 3600);
+                                                const minutes = Math.floor((remainingTime % 3600) / 60);
+                                                const seconds = remainingTime % 60;
+                                                timeDisplay = `${hours}h ${minutes}m ${seconds}s`;
+                                            }
+
+                                            // Check if at least 30 minutes have passed since repairs started
+                                            let timeSinceRepairStart = 0;
+                                            if (wreckFieldData.repair_started_at) {
+                                                const repairStartTime = new Date(wreckFieldData.repair_started_at);
+                                                timeSinceRepairStart = Math.floor((Date.now() - repairStartTime) / 1000);
+                                            }
+                                            const minRepairTime = 30 * 60; // 30 minutes
+                                            const minTimePassed = timeSinceRepairStart >= minRepairTime;
+
+                                            // Calculate repaired ships count
+                                            const repairedShips = wreckFieldData.ship_data ? wreckFieldData.ship_data.reduce((sum, ship) => {
+                                                return sum + Math.floor((ship.quantity * (wreckFieldData.repair_progress || 0)) / 100);
+                                            }, 0) : 0;
+
+                                            const canPartialCollect = minTimePassed && repairedShips > 0;
+                                            const buttonDisabled = canPartialCollect ? '' : 'disabled="disabled"';
+                                            const buttonClass = canPartialCollect ? 'middlemark' : 'disabled';
+
+                                            return `<p>${timeLabel}<span id="repairTimeCountDownForRepairOverlay" data-duration="${remainingTime}">${timeDisplay}</span></p>
+                                        <div class="btn btn_dark fright tooltip reCommissionButton" title="">
+                                            <input type="button" class="${buttonClass} reCommissionButton tooltip partial-collect-btn" value="Put ships that are already repaired back into service" ${buttonDisabled}>
+                                        </div>`;
+                                        })() :
+                                        wreckFieldData.is_completed ?
+                                        `<div class="btn btn_dark fright">
+                                            <input type="button" class="middlemark" value="Repairs completed - Collect ships" onclick="location.href='https://vendettalegacy.es/facilities';">
+                                        </div>` :
+                                        // Before repairs: show repair time and start button
+                                        `<label>Repair time: </label><span id="repairTime">${wreckFieldData.remaining_repair_time > 0 ? Math.floor(wreckFieldData.remaining_repair_time / 60) + 'm ' + (wreckFieldData.remaining_repair_time % 60) + 's' : '32m 0s'}</span>
+                                        <div class="btn btn_dark fright startRepairsButton">
+                                            <input type="button" class="middlemark startRepairsButton" value="Start repairs" onclick="goToSpaceDockAndRepair();">
+                                        </div>`
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Create jQuery UI dialog with proper background styling
+                    const $dialog = $('<div>')
+                        .addClass('overlayDiv repairlayer')
+                        .html(popupContent)
+                        .dialog({
+                            modal: false,
+                            resizable: false,
+                            draggable: true,
+                            width: 656,
+                            title: 'Space Dock',
+                            dialogClass: 'repairlayer',
+                            closeOnEscape: true,
+                            close: function() {
+                                $(this).dialog('destroy').remove();
+                            },
+                            open: function() {
+                                // Remove unwanted "Close" text from title bar
+                                $(this).parent().find('.ui-dialog-titlebar-close').contents().filter(function() {
+                                    return this.nodeType === 3 && $.trim(this.nodeValue) === 'Close';
+                                }).remove();
+
+                                // Also remove any span elements containing just "Close" text
+                                $(this).parent().find('.ui-dialog-titlebar-close span').each(function() {
+                                    const $this = $(this);
+                                    if (!$this.hasClass('ui-icon') && !$this.hasClass('ui-button-icon-space') && $.trim($this.text()) === 'Close') {
+                                        $this.remove();
+                                    }
+                                });
+
+                                // Initialize repair time countdown timer
+                                const $repairCountdown = $('#repairTimeCountDownForRepairOverlay');
+                                if ($repairCountdown.length) {
+                                    let duration = $repairCountdown.data('duration');
+
+                                    // Only start countdown if there's time remaining (duration > 0)
+                                    // If duration is 0, we're showing the auto-return date, not a countdown
+                                    if (duration > 0) {
+                                        const repairTimerInterval = setInterval(function() {
+                                            if (duration <= 0) {
+                                                $repairCountdown.text('0h 0m 0s');
+                                                clearInterval(repairTimerInterval);
+                                                return;
+                                            }
+
+                                            const hours = Math.floor(duration / 3600);
+                                            const minutes = Math.floor((duration % 3600) / 60);
+                                            const seconds = duration % 60;
+
+                                            $repairCountdown.text(`${hours}h ${minutes}m ${seconds}s`);
+                                            duration--;
+                                        }, 1000);
+
+                                        // Store interval on the element for cleanup
+                                        $repairCountdown.data('repairTimerInterval', repairTimerInterval);
+                                    }
+                                }
+
+                                // Bind click handler for partial collection button
+                                $(this).find('.partial-collect-btn').on('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    collectPartialRepairedShips(e);
+                                });
+                            },
+                            close: function() {
+                                // Cleanup repair timer interval
+                                const $repairCountdown = $('#repairTimeCountDownForRepairOverlay');
+                                if ($repairCountdown.length) {
+                                    const interval = $repairCountdown.data('repairTimerInterval');
+                                    if (interval) {
+                                        clearInterval(interval);
+                                    }
+                                }
+                                $(this).dialog('destroy').remove();
+                            }
+                        });
+
+                    // Initialize countdown timer if present
+                    if (timeRemaining > 0 && typeof window.simpleCountdown !== 'undefined') {
+                        const $countdown = $('#burnUpCountDownForRepairOverlay');
+                        if ($countdown.length) {
+                            new simpleCountdown($countdown, $countdown.data('duration'), null);
+                        }
+                    }
+                }
+
+                // Functions for popup actions
+                function goToSpaceDockAndBurnUp() {
+                    // Show confirmation dialog first
+                    errorBoxDecision(
+                        "Leave to burn up",
+                        "The wreckage will descend into the planet's atmosphere and burn up. Once struck, a repair will no longer be possible. Are you sure you want to burn up the wreckage?",
+                        "yes",
+                        "No",
+                        function() {
+                            // User confirmed, proceed with burn up
+                            $.ajax({
+                                url: "https://vendettalegacy.es/ajax/facilities/burn-wreck-field",
+                                method: "POST",
+                                data: {
+                                    _token: "mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd"
+                                },
+                                success: function(response) {
+                                    if (response.success) {
+                                        fadeBox(response.message, false);
+                                        // Close the dialog
+                                        $('.ui-dialog:has(.repairlayer)').find('.ui-dialog-titlebar-close').click();
+                                    } else {
+                                        fadeBox(response.message || 'Error burning up wreck field', true);
+                                    }
+                                },
+                                error: function() {
+                                    fadeBox('Error burning up wreck field', true);
+                                }
+                            });
+                        },
+                        function() {
+                            // User cancelled, do nothing
+                        }
+                    );
+                }
+
+                function goToSpaceDockAndRepair() {
+                    // Start repairs directly via AJAX
+                    $.ajax({
+                        url: 'https://vendettalegacy.es/ajax/facilities/start-repairs',
+                        method: 'POST',
+                        data: {
+                            _token: 'mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                // Show success message
+                                fadeBox('Repairs started successfully!');
+                                // Close the dialog to prevent confusion
+                                $('.ui-dialog:has(.repairlayer)').find('.ui-dialog-titlebar-close').click();
+
+                                // Redirect to facilities page to show repair progress
+                                setTimeout(() => {
+                                    location.href = "https://vendettalegacy.es/facilities?openSpaceDock=1";
+                                }, 500);
+                            } else {
+                                // Show error message
+                                fadeBox(response.message || 'Error starting repairs', true);
+                            }
+                        },
+                        error: function(xhr) {
+                            // Show error message on AJAX failure
+                            console.error('AJAX error:', xhr.status, xhr.statusText);
+                            console.error('Response text:', xhr.responseText);
+
+                            // Try to parse JSON if we get a 400 response with JSON body
+                            let errorMsg = 'Error starting repairs: ' + xhr.status;
+                            if (xhr.status === 400 && xhr.responseText) {
+                                try {
+                                    const jsonResponse = JSON.parse(xhr.responseText);
+                                    if (jsonResponse.message) {
+                                        errorMsg = jsonResponse.message;
+                                    }
+                                } catch (e) {
+                                    // If parsing fails, fall back to default error
+                                }
+                            }
+
+                            fadeBox(errorMsg, true);
+                        }
+                    });
+                }
+
+                function collectPartialRepairedShips(event) {
+                    // Prevent any other event handlers from firing
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    // Collect partially repaired ships (after 30 minutes)
+                    $.ajax({
+                        url: 'https://vendettalegacy.es/ajax/facilities/complete-repairs',
+                        method: 'POST',
+                        data: {
+                            _token: 'mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                // Close the dialog completely first
+                                $('.ui-dialog:has(.repairlayer)').dialog('destroy').remove();
+
+                                // Show success message
+                                fadeBox(response.message || 'Ships collected successfully!');
+
+                                // Redirect immediately to facilities page
+                                setTimeout(function() {
+                                    window.location.href = "https://vendettalegacy.es/facilities?openSpaceDock=1";
+                                }, 100);
+                            } else {
+                                fadeBox(response.message || 'Error collecting ships', true);
+                            }
+                        },
+                        error: function(xhr) {
+                            let errorMsg = 'Error collecting ships';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMsg = xhr.responseJSON.message;
+                            }
+                            fadeBox(errorMsg, true);
+                        }
+                    });
+                }
+
+                reloadResources({
+                    "resources": {
+                        // "population": {
+                        //     "amount": 100,
+                        //     "storage": 0,
+                        //     "safeCapacity": 0,
+                        //     "growthRate": 0,
+                        //     "capableToFeed": 0,
+                        //     "needFood": 0,
+                        //     "singleFoodConsumption": 0,
+                        //     "tooltip": "Population|<table class=\"resourceTooltip\"><tr><th>Available:<\/th><td><span class=\"overmark\">100<\/span><\/td><\/tr><tr><th>Living Space\n<\/th><td><span class=\"overmark\">0<\/span><\/td><\/tr><tr><th>Satisfied<\/th><td><span class=\"undermark\">0<\/span><\/td><\/tr><tr><th>Hungry<\/th><td><span class=\"overmark\">0<\/span><\/td><\/tr><tr><th>Growth rate<\/th><td><span class=\"\">\u00b10<\/span><\/td><\/tr><tr><th>Bunker Space\n<\/th><td><span class=\"middlemark\">100<\/span><\/td><\/tr><\/table>",
+                        //     "classesListItem": ""
+                        // },
+                        // "food": {
+                        //     "amount": 0,
+                        //     "storage": 0,
+                        //     "capableToFeed": 0,
+                        //     "production": 0,
+                        //     "consumption": 0,
+                        //     "timeTillFoodRunsOut": 0,
+                        //     "vacationMode": "",
+                        //     "tooltip": "Food|<table class=\"resourceTooltip\"><tr><th>Available:<\/th><td><span class=\"overmark\">0<\/span><\/td><\/tr><tr><th>Storage capacity<\/th><td><span class=\"overmark\">0<\/span><\/td><\/tr><tr><th>Overproduction<\/th><td><span class=\"undermark\">0<\/span><\/td><\/tr><tr><th>Consumption<\/th><td><span class=\"overmark\">0<\/span><\/td><\/tr><tr><th>Consumed in<\/th><td><span class=\"overmark timeTillFoodRunsOut\">~<\/span><\/td><\/tr><\/table>",
+                        //     "classesListItem": ""
+                        // },
+                        "metal": {
+                            "amount": 10000,
+                            "storage": 10000,
+                            "baseProduction": 0, // TODO: add base production separately?
+                            "production": 8.3058333333333,
+                            "tooltip": "Ammo|<table class=\"resourceTooltip\"><tr><th>Available:<\/th><td><span class=\"\">10,000<\/span><\/td><\/tr><tr><th>Storage capacity<\/th><td><span class=\"\">10,000<\/span><\/td><\/tr><tr><th>Current production:<\/th><td><span class=\" undermark \">+29,901<\/span><\/td><\/tr><tr><th>Safe:<\/th><td><span class=\"middlemark\">1,000<\/span><\/td><\/tr><\/table>",
+                            "classesListItem": "",
+                            "shopUrl": "#TODO_category=d8d49c315fa620d9c7f1f19963970dea59a0e3be&item=859d82d316b83848f7365d21949b3e1e63c7841f&page=shop&panel1-1="
+                        },
+                        "crystal": {
+                            "amount": 10000,
+                            "storage": 10000,
+                            "baseProduction": 0, // TODO: add base production separately?
+                            "production": 8.3058333333333,
+                            "tooltip": "Weapons|<table class=\"resourceTooltip\"><tr><th>Available:<\/th><td><span class=\"\">10,000<\/span><\/td><\/tr><tr><th>Storage capacity<\/th><td><span class=\"\">10,000<\/span><\/td><\/tr><tr><th>Current production:<\/th><td><span class=\" undermark \">+29,901<\/span><\/td><\/tr><tr><th>Safe:<\/th><td><span class=\"middlemark\">1,000<\/span><\/td><\/tr><\/table>",
+                            "classesListItem": "",
+                            "shopUrl": "#TODO_page=shop#category=d8d49c315fa620d9c7f1f19963970dea59a0e3be&item=bb2f6843226ef598f0b567b92c51b283de90aa48&page=shop&panel1-1="
+                        },
+                        "deuterium": {
+                            "amount": 10000,
+                            "storage": 10000,
+                            "baseProduction": 0, // TODO: add base production separately?
+                            "production": 0,
+                            "tooltip": "Cash|<table class=\"resourceTooltip\"><tr><th>Available:<\/th><td><span class=\"\">10,000<\/span><\/td><\/tr><tr><th>Storage capacity<\/th><td><span class=\"\">10,000<\/span><\/td><\/tr><tr><th>Current production:<\/th><td><span class=\" overmark \">0<\/span><\/td><\/tr><tr><th>Safe:<\/th><td><span class=\"middlemark\">1,000<\/span><\/td><\/tr><\/table>",
+                            "classesListItem": "",
+                            "shopUrl": "#TODO_shop#category=d8d49c315fa620d9c7f1f19963970dea59a0e3be&item=cb72ed207dd871832a850ee29f1c1f83aa3f4f36&page=shop&panel1-1="
+                        },
+                        "energy": {
+                            "amount": 10000,
+                            "tooltip": "Alcohol|<table class=\"resourceTooltip\"><tr><th>Available:<\/th><td><span class=\"\">10,000<\/span><\/td><\/tr><tr><th>Current production:<\/th><td><span class=\"undermark\">+24,867<\/span><\/td><\/tr><tr><th>Consumption<\/th><td><span class=\"\">0<\/span><\/td><\/tr><tr><th>Safe:<\/th><td><span class=\"middlemark\">1,000<\/span><\/td><\/tr><\/table>",
+                            "classesListItem": ""
+                        },
+                        "darkmatter": {
+                            "amount": 8000,
+                            "tooltip": "Itas|<table class=\"resourceTooltip\"><tr><th>Available:<\/th><td><span class=\"\">8,000<\/span><\/td><\/tr><\/table>",
+                            "classesListItem": "",
+                            "classes": "overlay",
+                            "link": "#TODO_page=payment",
+                            "img": "/img/icons/401d1a91ff40dc7c8acfa4377d3d65.gif"
+                        }
+                    },
+                    "techs": {
+                        // TODO: add tech levels as far as they are available
+                    },
+                    "honorScore": 11,
+                });
+
+                function updateAjaxResourcebox(data) {
+                    reloadResources(data);
+                }
+
+                function getAjaxResourcebox(callback) {
+                    $.get("https://vendettalegacy.es/overview#TODO_page=fetchResources&ajax=1", function (data) {
+                        reloadResources(data, callback);
+                    }, "text");
+                }
+
+                var changeSettingsLink = "#TODO_page=changeSettings";
+                var changeSettingsToken = "ea77594feda8933a60595311a0f56512";
+                var eventlistLink = "https://vendettalegacy.es/ajax/fleet/eventlist/fetch";
+
+                function openAnnouncement() {
+                    openOverlay("https://vendettalegacy.es/overview#TODO_page=announcement&ajax=1", {
+                        'class': 'announcement',
+                        zIndex: 4000
+                    });
+                }
+
+                var planetMoveLoca = {"askTitle":"Resettle Planet","askCancel":"Are you sure that you wish to cancel this planet relocation? The normal waiting time will thereby be maintained.","yes":"yes","no":"No","success":"The planet relocation was successfully cancelled.","error":"Error"};
+
+                function openPlanetRenameGiveupBox() {
+                    openOverlay("https://vendettalegacy.es/overlay/planet-abandon", {
+                        title: "Abandon\/Rename Homeworld",
+                        'class': "planetRenameOverlay"
+                    });
+                }
+
+                var locaPremium = {"buildingHalfOverlay":"Do you want to reduce the construction time by 50% of the total construction time () for <b>750 Dark Matter<\\\/b>?","buildingFullOverlay":"Do you want to immediately complete the construction order for <b>750 Dark Matter<\\\/b>?","shipsHalfOverlay":"Do you want to reduce the construction time by 50% of the total construction time () for <b>750 Dark Matter<\\\/b>?","shipsFullOverlay":"Do you want to immediately complete the construction order for <b>750 Dark Matter<\\\/b>?","researchHalfOverlay":"Do you want to reduce the research time by 50% of the total research time () for <b>750 Dark Matter<\\\/b>?","researchFullOverlay":"Do you want to immediately complete the research order for <b>750 Dark Matter<\\\/b>?"};
+                var priceBuilding = 750;
+                var priceResearch = 750;
+                var priceShips = 750;
+                var loca = loca || {};
+                loca = $.extend({}, loca, {"error":"Error","errorNotEnoughDM":"Not enough Dark Matter available! Do you want to buy some now?","notice":"Reference","planetGiveupQuestion":"Are you sure you want to abandon the planet %planetName% %planetCoordinates%?","moonGiveupQuestion":"Are you sure you want to abandon the moon %planetName% %planetCoordinates%?"});
+
+                function type() {
+                    var destination = document.getElementById(textDestination[currentIndex]);
+                    if (destination) {
+                        if (textContent[currentIndex].substr(currentChar, 1) == "<" && linetwo != 1) {
+                            while (textContent[currentIndex].substr(currentChar, 1) != ">") {
+                                currentChar++;
+                            }
+                        }
+                        if (linetwo == 1) {
+                            destination.innerHTML = textContent[currentIndex];
+                            currentChar = destination.innerHTML = textContent[currentIndex].length + 1;
+                        } else {
+                            destination.innerHTML = textContent[currentIndex].substr(0, currentChar) + "_";
+                            currentChar++;
+                        }
+                        if (currentChar > textContent[currentIndex].length) {
+                            destination.innerHTML = textContent[currentIndex];
+                            currentIndex++;
+                            currentChar = 0;
+                            if (currentIndex < textContent.length) {
+                                type();
+                            }
+                        } else {
+                            setTimeout("type()", 15);
+                        }
+                    }
+                }
+
+                function planetRenamed(data) {
+                    if (data["status"]) {
+                        $("#planetNameHeader").html(data["newName"]);
+                        reloadPage();
+                        $(".overlayDiv.planetRenameOverlay").dialog('close');
+                    }
+                    errorBoxAsArray(data["errorbox"]);
+                }
+
+                function reloadPage() {
+                    location.href = "https://vendettalegacy.es/fleet";
+                }
+
+                var demolish_id;
+                var buildUrl;
+
+                function loadDetails(type) {
+                    url = "https://vendettalegacy.es/overview?ajax=1";
+                    if (typeof (detailUrl) != 'undefined') {
+                        url = detailUrl;
+                    }
+                    $.get(url, {type: type}, function (data) {
+                        $("#detail").html(data);
+                        $("#techDetailLoading").hide();
+                        $("input[type='text']:first", document.forms["form"]).focus();
+                        $(document).trigger("ajaxShowElement", (typeof techID === 'undefined' ? 0 : techID));
+                    });
+                }
+
+                function sendBuildRequest(url, ev, showSlotWarning) {
+                    console.debug("sendBuildRequest");
+                    if (ev != undefined) {
+                        var keyCode;
+                        if (window.event) {
+                            keyCode = window.event.keyCode;
+                        } else if (ev) {
+                            keyCode = ev.which;
+                        } else {
+                            return true;
+                        }
+                        console.debug("KeyCode: " + keyCode);
+                        if (keyCode != 13 || $('#premiumConfirmButton')) {
+                            return true;
+                        }
+                    }
+
+                    function build() {
+                        if (url == null) {
+                            sendForm();
+                        } else {
+                            fastBuild();
+                        }
+                    }
+
+                    if (url == null) {
+                        fallBackFunc = sendForm;
+                    } else {
+                        fallBackFunc = build;
+                        buildUrl = url;
+                    }
+                    if (showSlotWarning) {
+                        build();
+                    } else {
+                        build();
+                    }
+                    return false;
+                }
+
+                function fastBuild() {
+                    location.href = buildUrl;
+                    return false;
+                }
+
+                function sendForm() {
+                    document.form.submit();
+                    return false;
+                }
+
+                function demolishBuilding(id, question) {
+                    demolish_id = id;
+                    question += "<br/><br/>" + $("#demolish" + id).html();
+                    errorBoxDecision("Caution", "" + question + "", "yes", "No", demolishStart);
+                }
+
+                function demolishStart() {
+                    window.location.replace("https://vendettalegacy.es/resources?modus=3&token=9c8a2a05984ebfd30e88ea2fd9da03df&type=" + demolish_id);
+                }
+
+                $('#planet').find('h2 a').hover(function () {
+                    $('#planet').find('h2 a img').toggleClass('hinted');
+                }, function () {
+                    $('#planet').find('h2 a img').toggleClass('hinted');
+                });
+                var player = {hasCommander: false};
+                var localizedBBCode = {"bold":"Bold","italic":"Italic","underline":"Underline","stroke":"Strikethrough","sub":"Subscript","sup":"Superscript","fontColor":"Font colour","fontSize":"Font size","backgroundColor":"Background colour","backgroundImage":"Background image","tooltip":"Tool-tip","alignLeft":"Left align","alignCenter":"Centre align","alignRight":"Right align","alignJustify":"Justify","block":"Break","code":"Code","spoiler":"Spoiler","moreopts":"More Options","list":"List","hr":"Horizontal line","picture":"Image","link":"Link","email":"Email","player":"Player","item":"Item","coordinates":"Coordinates","preview":"Preview","textPlaceHolder":"Text...","playerPlaceHolder":"Player ID or name","itemPlaceHolder":"Item ID","coordinatePlaceHolder":"Galaxy:system:position","charsLeft":"Characters remaining","colorPicker":{"ok":"Ok","cancel":"Cancel","rgbR":"R","rgbG":"G","rgbB":"B"},"backgroundImagePicker":{"ok":"Ok","repeatX":"Repeat horizontally","repeatY":"Repeat vertically"}}, itemNames = {
+                    "090a969b05d1b5dc458a6b1080da7ba08b84ec7f": "Bronze Crystal Booster",
+                    "e254352ac599de4dd1f20f0719df0a070c623ca8": "Bronze Deuterium Booster",
+                    "b956c46faa8e4e5d8775701c69dbfbf53309b279": "Bronze Metal Booster",
+                    "3c9f85221807b8d593fa5276cdf7af9913c4a35d": "Bronze Crystal Booster",
+                    "422db99aac4ec594d483d8ef7faadc5d40d6f7d3": "Silver Crystal Booster",
+                    "118d34e685b5d1472267696d1010a393a59aed03": "Gold Crystal Booster",
+                    "d3d541ecc23e4daa0c698e44c32f04afd2037d84": "DETROID Bronze",
+                    "0968999df2fe956aa4a07aea74921f860af7d97f": "DETROID Gold",
+                    "27cbcd52f16693023cb966e5026d8a1efbbfc0f9": "DETROID Silver",
+                    "d9fa5f359e80ff4f4c97545d07c66dbadab1d1be": "Bronze Deuterium Booster",
+                    "e4b78acddfa6fd0234bcb814b676271898b0dbb3": "Silver Deuterium Booster",
+                    "5560a1580a0330e8aadf05cb5bfe6bc3200406e2": "Gold Deuterium Booster",
+                    "40f6c78e11be01ad3389b7dccd6ab8efa9347f3c": "KRAKEN Bronze",
+                    "929d5e15709cc51a4500de4499e19763c879f7f7": "KRAKEN Gold",
+                    "4a58d4978bbe24e3efb3b0248e21b3b4b1bfbd8a": "KRAKEN Silver",
+                    "de922af379061263a56d7204d1c395cefcfb7d75": "Bronze Metal Booster",
+                    "ba85cc2b8a5d986bbfba6954e2164ef71af95d4a": "Silver Metal Booster",
+                    "05294270032e5dc968672425ab5611998c409166": "Gold Metal Booster",
+                    "be67e009a5894f19bbf3b0c9d9b072d49040a2cc": "Bronze Moon Fields",
+                    "05ee9654bd11a261f1ff0e5d0e49121b5e7e4401": "Gold Moon Fields",
+                    "c21ff33ba8f0a7eadb6b7d1135763366f0c4b8bf": "Silver Moon Fields",
+                    "485a6d5624d9de836d3eb52b181b13423f795770": "Bronze M.O.O.N.S.",
+                    "45d6660308689c65d97f3c27327b0b31f880ae75": "Gold M.O.O.N.S.",
+                    "fd895a5c9fd978b9c5c7b65158099773ba0eccef": "Silver M.O.O.N.S.",
+                    "da4a2a1bb9afd410be07bc9736d87f1c8059e66d": "NEWTRON Bronze",
+                    "8a4f9e8309e1078f7f5ced47d558d30ae15b4a1b": "NEWTRON Gold",
+                    "d26f4dab76fdc5296e3ebec11a1e1d2558c713ea": "NEWTRON Silver",
+                    "16768164989dffd819a373613b5e1a52e226a5b0": "Bronze Planet Fields",
+                    "04e58444d6d0beb57b3e998edc34c60f8318825a": "Gold Planet Fields",
+                    "0e41524dc46225dca21c9119f2fb735fd7ea5cb3": "Silver Planet Fields"
+                };
+                $(document).ready(function () {
+                    initIndex();
+                    initOverview();
+                    initBuffBar();
+                    tabletInitOverviewAdvice();
+
+                    ogame.chat.showPlayerList('#chatBarPlayerList .cb_playerlist_box');
+                    ogame.chat.showPlayerList('#sideBar');
+                    var initChatAsyncInterval = window.setInterval(initChatAsync, 100);
+
+                    function initChatAsync() {
+                        if (ogame.chat.isLoadingPlayerList === false && ogame.chat.playerList !== null) {
+                            clearInterval(initChatAsyncInterval);
+                            ogame.chat.initChatBar(playerId);
+                            ogame.chat.initChat(playerId, isMobile, null);
+                            ogame.chat.updateCustomScrollbar($('.scrollContainer'));
+                        }
+                    }
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    // Chat speech bubble icon now links to /chat page directly.
+                });</script>            <!-- END JAVASCRIPT -->
+
+
+                <div class="ogx-vmission-wrap">
+                <table class="ogx-vmission-table">
+            <tr><td class="c">Global overview</td></tr>
+            <tr>
+                <th>
+                    <a href="https://vendettalegacy.es/fleet/troops-global-vision" id="ogxTroopsVisionLink" target="_blank" rel="noopener">Global troops view</a><br>
+                    <a href="https://vendettalegacy.es/fleet/movement">Global missions view</a>
+                </th>
+            </tr>
+        </table>
+
+        <form id="ogxLegacyMissionForm" onsubmit="return false;">
+            <input type="hidden" name="_token" value="mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd" autocomplete="off">            <table class="ogx-vmission-table">
+                <tr><td class="c">Plan new attack</td></tr>
+                <tr>
+                    <th style="padding:0;">
+                        <table style="width:100%;">
+                            <tr>
+                                <th style="width:50%;">Troops<br><a href="#" id="ogxUnitsAll">[ALL]</a> / <a href="#" id="ogxUnitsNone">[NONE]</a></th>
+                                <th>Quantity</th>
+                            </tr>
+                                                            <tr><th colspan="2">-</th></tr>
+                                                    </table>
+                    </th>
+                </tr>
+
+                <tr><td class="c">Target building</td></tr>
+                                <tr>
+                    <th>
+                                                    <div class="ogx-building-picker-row">
+                                <label for="ogxBuildingPicker">My buildings</label>
+                                <select id="ogxBuildingPicker" class="ogx-building-picker" onchange="window.ogxApplyLegacyBuildingPicker(this.value)">
+                                    <option value="">— Enter coordinates —</option>
+                                                                            <option value="1921"
+                                                                                    >Homeworld [1:4:1]</option>
+                                                                    </select>
+                            </div>
+                                                Building
+                        <span class="ogx-coord-group">
+                            <input id="ogx_city" type="number" min="1" value="1" class="ogx-coord" aria-label="Ciudad">
+                            <span class="ogx-coord-sep">:</span>
+                            <input id="ogx_district" type="number" min="1" value="4" class="ogx-coord" aria-label="Barrio">
+                            <span class="ogx-coord-sep">:</span>
+                            <input id="ogx_slot" type="number" min="1" value="60" class="ogx-coord" aria-label="Casilla">
+                        </span>
+                        <input id="ogx_galaxy" type="hidden" value="1">
+                        <input id="ogx_system" type="hidden" value="9">
+                        <input id="ogx_position" type="hidden" value="9">
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Mission
+                        <input type="hidden" id="ogx_mission" value="1">
+                        <div class="ogx-mission-custom" id="ogxMissionSelect">
+                            <button type="button" class="ogx-mission-trigger" id="ogxMissionTrigger">Attack</button>
+                            <div class="ogx-mission-menu" id="ogxMissionMenu">
+                                <button type="button" class="ogx-mission-item" data-value="1">Attack</button>
+                                <button type="button" class="ogx-mission-item" data-value="3">Transport</button>
+                                <button type="button" class="ogx-mission-item" data-value="4">Station</button>
+                                <button type="button" class="ogx-mission-item" data-value="4">Occupy</button>
+                                <button type="button" class="ogx-mission-item" data-value="6">Espionage</button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+
+                <tr><td class="c">Resources (transport and station) <span style="float:right;"><a href="#" id="ogxResAll">[ALL]</a> / <a href="#" id="ogxResNone">[NONE]</a></span></td></tr>
+                <tr>
+                    <th>
+                        <div class="ogx-res-row">
+                            <label>Weapons (10.000)</label>
+                            <input id="ogx_crystal" type="number" min="0" max="10000" value="0">
+                            <a href="#" class="ogx-res-max" data-target="ogx_crystal" data-max="10000">[Max]</a>
+                        </div>
+                        <div class="ogx-res-row">
+                            <label>Ammo (10.000)</label>
+                            <input id="ogx_metal" type="number" min="0" max="10000" value="0">
+                            <a href="#" class="ogx-res-max" data-target="ogx_metal" data-max="10000">[Max]</a>
+                        </div>
+                        <div class="ogx-res-row">
+                            <label>Alcohol (10.000)</label>
+                            <input id="ogx_alcohol" type="number" min="0" max="10000" value="0">
+                            <a href="#" class="ogx-res-max" data-target="ogx_alcohol" data-max="10000">[Max]</a>
+                        </div>
+                        <div class="ogx-res-row">
+                            <label>Cash (10.000)</label>
+                            <input id="ogx_dollars" type="number" min="0" max="10000" value="0">
+                            <a href="#" class="ogx-res-max" data-target="ogx_dollars" data-max="10000">[Max]</a>
+                        </div>
+                    </th>
+                </tr>
+                <tr id="ogxMissionStatsRow" class="ogx-mstats-outer" style="display:none;">
+                    <th style="padding:0;">
+                        <div class="ogx-mstats-title">MISSION STATS</div>
+                        <table class="ogx-mstats-grid" role="presentation">
+                            <tbody>
+                                <tr><td class="ogx-mstats-k">Building owner</td><td class="ogx-mstats-v" id="ogxStatOwner">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Attack power</td><td class="ogx-mstats-v" id="ogxStatAttack">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Defense power</td><td class="ogx-mstats-v" id="ogxStatDefense">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Cargo capacity</td><td class="ogx-mstats-v" id="ogxStatCapacity">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Total wages</td><td class="ogx-mstats-v" id="ogxStatSalary">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Speed</td><td class="ogx-mstats-v" id="ogxStatSpeed">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Distance</td><td class="ogx-mstats-v" id="ogxStatDistance">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Duration (outbound)</td><td class="ogx-mstats-v" id="ogxStatDurOut">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Duration (return)</td><td class="ogx-mstats-v" id="ogxStatDurBack">—</td></tr>
+                                <tr><td class="ogx-mstats-k">Total duration</td><td class="ogx-mstats-v" id="ogxStatDurTotal">—</td></tr>
+                            </tbody>
+                        </table>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <div id="ogxMissionNotice" class="ogx-mission-notice" style="display:none;"></div>
+                        <button type="button" id="ogxSendBtn" >Send</button>
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <style>
+        .ogx-send-btn--locked {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+            pointer-events: none;
+        }
+        .ogx-vmission-table { width: 100%; border-collapse: collapse; margin: 0 0 8px; }
+        .ogx-vmission-table .c { background: linear-gradient(180deg, #8f1111 0%, #640909 100%); color: #f5e8ce; font-weight: 700; padding: 8px; text-align: center; }
+        .ogx-vmission-table th { background: #e6d8b8; color: #241f1c; border: 0; padding: 8px; text-align: center; font-size: 18px; }
+        .ogx-vmission-table a { color: #8f1111; text-decoration: none; font-weight: 700; }
+        .ogx-vmission-table input, .ogx-vmission-table select { background: #ffffff; border: 1px solid #8a7557; color: #241f1c; padding: 4px; }
+        .ogx-mission-custom { position: relative; display: inline-block; width: 230px; margin-left: 8px; text-align: left; }
+        .ogx-mission-trigger {
+            width: 100%;
+            background: #ffffff !important;
+            color: #8f1111 !important;
+            border: 1px solid #111 !important;
+            padding: 4px 28px 4px 8px;
+            line-height: 1.2;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+        }
+        .ogx-mission-trigger::after {
+            content: "▼";
+            position: absolute;
+            right: 8px;
+            top: 4px;
+            font-size: 12px;
+            color: #8f1111;
+        }
+        .ogx-mission-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 2px);
+            left: 0;
+            right: 0;
+            z-index: 50;
+            border: 1px solid #4b0b0b;
+            background: #e6d8b8;
+            box-shadow: 0 4px 10px rgba(0,0,0,.25);
+        }
+        .ogx-mission-custom.open .ogx-mission-menu { display: block; }
+        .ogx-mission-item {
+            display: block;
+            width: 100%;
+            background: #e6d8b8;
+            color: #241f1c;
+            border: 0;
+            border-bottom: 1px solid #cbbd9b;
+            padding: 6px 8px;
+            text-align: left;
+            cursor: pointer;
+        }
+        .ogx-mission-item:last-child { border-bottom: 0; }
+        .ogx-mission-item:hover { background: #d8c9a6; color: #7d1111; }
+        .ogx-vmission-table button { background: linear-gradient(180deg, #8f1111 0%, #640909 100%); color: #f5e8ce; border: 1px solid #4b0b0b; padding: 5px 12px; margin: 0 4px; }
+        .ogx-coord { width: 70px; margin: 0 2px; text-align: center; }
+        .ogx-coord-group { display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 2px; }
+        .ogx-coord-sep { font-weight: 700; color: #5a3f2b; padding: 0 2px; }
+        .ogx-building-picker-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ogx-building-picker-row label { font-weight: 700; color: #241f1c; }
+        .ogx-building-picker {
+            min-width: 280px;
+            max-width: 100%;
+            background: #ffffff !important;
+            border: 1px solid #8a7557 !important;
+            color: #241f1c !important;
+            padding: 6px 8px !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+        .ogx-building-picker option {
+            background: #ffffff;
+            color: #241f1c;
+        }
+        .ogx-mission-select { width: 220px; margin-left: 8px; }
+        .ogx-res-row { display: grid; grid-template-columns: 1fr 150px 70px; gap: 8px; align-items: center; padding: 4px 0; max-width: 680px; margin: 0 auto; }
+        .ogx-vmission-unitrow { display: inline-flex; align-items: center; gap: 10px; justify-content: flex-start; }
+        .ogx-vmission-thumb { flex: 0 0 auto; border-radius: 4px; border: 1px solid #8a7557; object-fit: contain; background: rgba(255,255,255,.5); }
+        .ogx-vmission-thumb-ph { display: inline-block; width: 36px; height: 36px; border-radius: 4px; border: 1px dashed #8a7557; background: rgba(0,0,0,.06); vertical-align: middle; }
+        .ogx-mstats-title {
+            background: linear-gradient(180deg, #8f1111 0%, #640909 100%);
+            color: #f5e8ce;
+            font-weight: 700;
+            padding: 8px;
+            text-align: center;
+            font-size: 16px;
+            letter-spacing: 0.02em;
+        }
+        .ogx-mstats-grid { width: 100%; border-collapse: collapse; margin: 0; }
+        .ogx-mstats-grid td { padding: 8px 12px; border-bottom: 1px solid #a89472; background: #e6d8b8; color: #4a1515; font-size: 16px; }
+        .ogx-mstats-grid tr:last-child td { border-bottom: 0; }
+        .ogx-mstats-k { text-align: left; font-weight: 600; width: 55%; }
+        .ogx-mstats-v { text-align: right; font-weight: 700; color: #8f1111; }
+        .ogx-mission-notice {
+            margin: 0 auto 10px;
+            max-width: 680px;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border: 1px solid #8a7557;
+            background: #f3e7c9;
+            color: #3b1f1f;
+            font-weight: 700;
+            text-align: left;
+        }
+        .ogx-mission-notice--error {
+            border-color: #8f1111;
+            background: #fbe3e3;
+            color: #7d1111;
+        }
+        .ogx-mission-notice--success {
+            border-color: #2c7a3a;
+            background: #e5f5e7;
+            color: #1e5f2c;
+        }
+    </style>
+
+        <script type="application/json" id="ogxLegacyBuildingTargetsJson">[{"planet_id":1921,"label":"Homeworld [1:4:1]","city":1,"district":4,"slot":1,"galaxy":1,"system":9,"position":9,"is_current":true}]</script>
+    <script>
+        const ogxFleetOnVacation = false;
+        window.__ogxLegacyBuildingTargetsById = window.__ogxLegacyBuildingTargetsById || {};
+        window.__ogxLegacyBuildingPickerPrefilled = false;
+        window.ogxApplyLegacyBuildingPicker = function (planetId) {
+            if (!planetId) {
+                return;
+            }
+            var target = window.__ogxLegacyBuildingTargetsById[String(planetId)];
+            if (!target) {
+                return;
+            }
+            var setValue = function (id, value) {
+                var el = document.getElementById(id);
+                if (!el) {
+                    return;
+                }
+                el.value = String(value ?? '');
+            };
+            setValue('ogx_city', target.city);
+            setValue('ogx_district', target.district);
+            setValue('ogx_slot', target.slot);
+            setValue('ogx_galaxy', target.galaxy);
+            setValue('ogx_system', target.system);
+            setValue('ogx_position', target.position);
+            window.__ogxLegacyBuildingPickerPrefilled = true;
+            if (typeof window.ogxRefreshTroopsVisionHref === 'function') {
+                window.ogxRefreshTroopsVisionHref();
+            }
+            if (typeof window.ogxScheduleMissionStats === 'function') {
+                window.ogxScheduleMissionStats();
+            }
+        };
+        (function () {
+            var raw = document.getElementById('ogxLegacyBuildingTargetsJson');
+            if (!raw) {
+                return;
+            }
+            var list = [];
+            try {
+                list = JSON.parse(raw.textContent || '[]');
+            } catch (e) {
+                list = [];
+            }
+            list.forEach(function (item) {
+                window.__ogxLegacyBuildingTargetsById[String(item.planet_id)] = item;
+            });
+            var picker = document.getElementById('ogxBuildingPicker');
+            if (picker && picker.value) {
+                window.ogxApplyLegacyBuildingPicker(picker.value);
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            function ogxFixBuildingPickerSelect() {
+                if (typeof jQuery === 'undefined') {
+                    return;
+                }
+                var $sel = jQuery('#ogxBuildingPicker');
+                if (!$sel.length) {
+                    return;
+                }
+                if ($sel.hasClass('dropdownInitialized') && typeof $sel.ogameDropDown === 'function') {
+                    $sel.ogameDropDown('destroy');
+                }
+                $sel.addClass('ogx-building-picker-native').css({
+                    visibility: 'visible',
+                    display: 'inline-block',
+                    opacity: '1'
+                });
+                jQuery('.ogx-vmission-wrap .dropdown.currentlySelected.ogx-building-picker').remove();
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    ogxFixBuildingPickerSelect();
+                    setTimeout(ogxFixBuildingPickerSelect, 100);
+                    setTimeout(ogxFixBuildingPickerSelect, 500);
+                });
+            } else {
+                ogxFixBuildingPickerSelect();
+                setTimeout(ogxFixBuildingPickerSelect, 100);
+                setTimeout(ogxFixBuildingPickerSelect, 500);
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            const ogxFleetLegacyI18n = {"statsFailed":"Could not calculate statistics.","statsRefreshError":"Error refreshing statistics.","missionSent":"Mission sent successfully.","missionSendFailed":"Could not send the mission.","missionSendError":"Error sending the mission.","reloadToRetry":"vendetta_views.fleet_legacy.js_reload_to_retry","btnSending":"vendetta_views.fleet_legacy.btn_sending","btnSend":"Send","missionDefaultLabel":"Attack","vacationBlocked":"No fleets can be sent from vacation mode!","needTroops":"Choose your units first."};
+            const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+            const units = Array.from(document.querySelectorAll('.ogx-unit-input:not(.ogx-vt-input)'));
+            const vtInputs = Array.from(document.querySelectorAll('.ogx-vt-input'));
+            const missionNotice = document.getElementById('ogxMissionNotice');
+
+            function showMissionNotice(message, type = 'error') {
+                if (!missionNotice) return;
+                missionNotice.textContent = message || '';
+                missionNotice.classList.remove('ogx-mission-notice--error', 'ogx-mission-notice--success');
+                missionNotice.classList.add(type === 'success' ? 'ogx-mission-notice--success' : 'ogx-mission-notice--error');
+                missionNotice.style.display = message ? 'block' : 'none';
+            }
+
+            function clearMissionNotice() {
+                if (!missionNotice) return;
+                missionNotice.style.display = 'none';
+                missionNotice.textContent = '';
+                missionNotice.classList.remove('ogx-mission-notice--error', 'ogx-mission-notice--success');
+            }
+
+            function setAllUnits(valueFn) {
+                [...units, ...vtInputs].forEach((input) => {
+                    const max = Number(input.getAttribute('max') || 0);
+                    input.value = String(valueFn(max));
+                });
+            }
+
+            document.getElementById('ogxUnitsAll')?.addEventListener('click', function (e) { e.preventDefault(); setAllUnits((m) => m); scheduleMissionStats(); });
+            document.getElementById('ogxUnitsNone')?.addEventListener('click', function (e) { e.preventDefault(); setAllUnits(() => 0); scheduleMissionStats(); });
+            document.querySelectorAll('.ogx-set-max').forEach((el) => {
+                el.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const vt = this.getAttribute('data-vt-key');
+                    const id = this.getAttribute('data-unit-id');
+                    const input = vt
+                        ? document.querySelector('.ogx-vt-input[data-vt-key="' + vt + '"]')
+                        : document.querySelector('.ogx-unit-input[data-unit-id="' + id + '"]');
+                    if (input) input.value = input.getAttribute('max') || '0';
+                    scheduleMissionStats();
+                });
+            });
+            [...units, ...vtInputs].forEach((input) => {
+                input.addEventListener('input', scheduleMissionStats);
+                input.addEventListener('change', scheduleMissionStats);
+            });
+
+            function getSelectedFleetCargoCapacity() {
+                let capacity = 0;
+                [...units, ...vtInputs].forEach((input) => {
+                    const count = Number(input.value || 0);
+                    const perUnit = Number(input.getAttribute('data-cargo-per-unit') || 0);
+                    capacity += count * perUnit;
+                });
+                return Math.max(0, Math.floor(capacity));
+            }
+
+            function getTotalResourceLoad(excludeId) {
+                let total = 0;
+                ['ogx_metal', 'ogx_crystal', 'ogx_alcohol', 'ogx_dollars'].forEach((id) => {
+                    if (excludeId && id === excludeId) {
+                        return;
+                    }
+                    const input = document.getElementById(id);
+                    if (input) {
+                        total += Number(input.value || 0);
+                    }
+                });
+                return Math.max(0, Math.floor(total));
+            }
+
+            function getMaxFillableForResource(inputId) {
+                const input = document.getElementById(inputId);
+                if (!input) {
+                    return 0;
+                }
+                const planetMax = Number(input.getAttribute('max') || 0);
+                const fleetCapacity = getSelectedFleetCargoCapacity();
+                const usedByOthers = getTotalResourceLoad(inputId);
+                const remainingCargo = Math.max(0, fleetCapacity - usedByOthers);
+                return Math.min(planetMax, remainingCargo);
+            }
+
+            function fillAllResWithinCargo() {
+                const order = ['ogx_crystal', 'ogx_metal', 'ogx_alcohol', 'ogx_dollars'];
+                let remaining = getSelectedFleetCargoCapacity();
+                order.forEach((id) => {
+                    const input = document.getElementById(id);
+                    if (!input) {
+                        return;
+                    }
+                    const planetMax = Number(input.getAttribute('max') || 0);
+                    const fill = Math.min(planetMax, remaining);
+                    input.value = String(Math.max(0, Math.floor(fill)));
+                    remaining -= fill;
+                });
+            }
+
+            function setAllRes(maxMode) {
+                if (maxMode) {
+                    fillAllResWithinCargo();
+                    return;
+                }
+                ['ogx_metal', 'ogx_crystal', 'ogx_alcohol', 'ogx_dollars'].forEach((id) => {
+                    const input = document.getElementById(id);
+                    if (!input) return;
+                    input.value = '0';
+                });
+            }
+            document.getElementById('ogxResAll')?.addEventListener('click', (e) => { e.preventDefault(); setAllRes(true); });
+            document.getElementById('ogxResNone')?.addEventListener('click', (e) => { e.preventDefault(); setAllRes(false); });
+            document.querySelectorAll('.ogx-res-max').forEach((el) => {
+                el.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        target.value = String(getMaxFillableForResource(targetId));
+                    }
+                });
+            });
+            function buildFleetStatsPayload() {
+                const p = new URLSearchParams();
+                p.append('_token', csrf);
+                p.append('galaxy', document.getElementById('ogx_galaxy').value);
+                p.append('system', document.getElementById('ogx_system').value);
+                p.append('position', document.getElementById('ogx_position').value);
+                p.append('type', "1");
+                p.append('mission', document.getElementById('ogx_mission').value);
+                p.append('speed', '10');
+                p.append('holdingtime', '0');
+                p.append('metal', document.getElementById('ogx_metal').value);
+                p.append('crystal', document.getElementById('ogx_crystal').value);
+                p.append('deuterium', document.getElementById('ogx_dollars').value);
+                p.append('alcohol', document.getElementById('ogx_alcohol').value);
+                document.querySelectorAll('.ogx-unit-input:not(.ogx-vt-input)').forEach((input) => {
+                    const val = Number(input.value || 0);
+                    if (val > 0) p.append('am' + input.getAttribute('data-unit-id'), String(val));
+                });
+                document.querySelectorAll('.ogx-vt-input').forEach((input) => {
+                    const val = Number(input.value || 0);
+                    const k = input.getAttribute('data-vt-key');
+                    if (val > 0 && k) p.append('vt_' + k, String(val));
+                });
+                const cityEl = document.getElementById('ogx_city');
+                const districtEl = document.getElementById('ogx_district');
+                const slotEl = document.getElementById('ogx_slot');
+                if (cityEl) p.append('city', cityEl.value);
+                if (districtEl) p.append('district', districtEl.value);
+                if (slotEl) p.append('slot', slotEl.value);
+                return p;
+            }
+
+            const missionSelect = document.getElementById('ogxMissionSelect');
+            const missionTrigger = document.getElementById('ogxMissionTrigger');
+            const missionHidden = document.getElementById('ogx_mission');
+            const troopsVisionLink = document.getElementById('ogxTroopsVisionLink');
+            const cityInput = document.getElementById('ogx_city');
+            const districtInput = document.getElementById('ogx_district');
+            const slotInput = document.getElementById('ogx_slot');
+            const galaxyHidden = document.getElementById('ogx_galaxy');
+            const systemHidden = document.getElementById('ogx_system');
+            const positionHidden = document.getElementById('ogx_position');
+            function syncHiddenFromVisible() {
+                if (!galaxyHidden || !systemHidden || !positionHidden) return;
+                if (window.__ogxLegacyBuildingPickerPrefilled) return;
+                galaxyHidden.value = cityInput?.value || '';
+                systemHidden.value = districtInput?.value || '';
+                positionHidden.value = slotInput?.value || '';
+            }
+            function syncCoordsForDispatch() {
+                const city = document.getElementById('ogx_city')?.value ?? '';
+                const district = document.getElementById('ogx_district')?.value ?? '';
+                const slot = document.getElementById('ogx_slot')?.value ?? '1';
+                const setValue = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.value = String(value ?? '');
+                    }
+                };
+                setValue('ogx_galaxy', city);
+                setValue('ogx_system', district);
+                setValue('ogx_position', slot);
+                window.__ogxLegacyBuildingPickerPrefilled = false;
+            }
+            let statsTimer = null;
+            let statsRequestSeq = 0;
+            let statsAbort = null;
+            async function refreshMissionStats(options) {
+                const silent = options && options.silent === true;
+                const requestId = ++statsRequestSeq;
+                const row = document.getElementById('ogxMissionStatsRow');
+                if (!silent) {
+                    clearMissionNotice();
+                }
+                if (statsAbort) {
+                    try { statsAbort.abort(); } catch (e) {}
+                }
+                statsAbort = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+                try {
+                    const response = await fetch("https://vendettalegacy.es/ajax/fleet/dispatch/vendetta-mission-stats", {
+                        method: 'POST',
+                        headers: { 'X-CSRF-TOKEN': csrf, 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                        body: buildFleetStatsPayload().toString(),
+                        signal: statsAbort ? statsAbort.signal : undefined
+                    });
+                    if (requestId !== statsRequestSeq) {
+                        return false;
+                    }
+                    const data = await response.json();
+                    if (requestId !== statsRequestSeq) {
+                        return false;
+                    }
+                    if (!data || !data.success) {
+                        if (!silent) {
+                            showMissionNotice((data && data.message) ? data.message : ogxFleetLegacyI18n.statsFailed, 'error');
+                        }
+                        return false;
+                    }
+                    const f = data.formatted || {};
+                    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = (v == null || v === '') ? '—' : String(v); };
+                    set('ogxStatOwner', f.target_owner || data.target_owner || '—');
+                    set('ogxStatAttack', f.attack || '0');
+                    set('ogxStatDefense', f.defense || '0');
+                    set('ogxStatCapacity', f.capacity || '0');
+                    set('ogxStatSalary', f.salary || '0');
+                    set('ogxStatSpeed', f.speed || '0');
+                    set('ogxStatDistance', (f.distance != null && f.distance !== '') ? f.distance : '0,00');
+                    set('ogxStatDurOut', (f.duration_out != null && f.duration_out !== '') ? f.duration_out : '00:00:00');
+                    set('ogxStatDurBack', (f.duration_back != null && f.duration_back !== '') ? f.duration_back : '00:00:00');
+                    set('ogxStatDurTotal', (f.duration_total != null && f.duration_total !== '') ? f.duration_total : '00:00:00');
+                    if (row) row.style.display = 'table-row';
+                    return true;
+                } catch (err) {
+                    if (err && (err.name === 'AbortError' || err.code === 20)) {
+                        return false;
+                    }
+                    if (requestId !== statsRequestSeq) {
+                        return false;
+                    }
+                    if (!silent) {
+                        showMissionNotice(ogxFleetLegacyI18n.statsRefreshError, 'error');
+                    }
+                    return false;
+                }
+            }
+            function coordsComplete() {
+                const c = Number(document.getElementById('ogx_city')?.value || 0);
+                const d = Number(document.getElementById('ogx_district')?.value || 0);
+                const s = Number(document.getElementById('ogx_slot')?.value || 0);
+                return c >= 1 && d >= 1 && s >= 1;
+            }
+            function scheduleMissionStats() {
+                if (ogxFleetOnVacation) {
+                    return;
+                }
+                if (statsTimer) {
+                    clearTimeout(statsTimer);
+                }
+                statsTimer = setTimeout(function () {
+                    syncCoordsForDispatch();
+                    if (!coordsComplete()) {
+                        return;
+                    }
+                    refreshMissionStats({ silent: true });
+                }, 80);
+            }
+            window.ogxScheduleMissionStats = scheduleMissionStats;
+            document.getElementById('ogxLegacyMissionForm')?.addEventListener('input', function (e) {
+                const t = e.target;
+                if (!(t instanceof HTMLElement)) {
+                    return;
+                }
+                if (t.classList.contains('ogx-unit-input') || t.classList.contains('ogx-vt-input') || t.classList.contains('ogx-coord')) {
+                    scheduleMissionStats();
+                }
+            });
+            window.ogxRefreshTroopsVisionHref = function () {
+                if (!troopsVisionLink) return;
+                const g = document.getElementById('ogx_galaxy')?.value || '';
+                const s = document.getElementById('ogx_system')?.value || '';
+                const p = document.getElementById('ogx_position')?.value || '';
+                const url = new URL(troopsVisionLink.getAttribute('href'), window.location.origin);
+                url.searchParams.set('galaxy', g);
+                url.searchParams.set('system', s);
+                url.searchParams.set('position', p);
+                troopsVisionLink.setAttribute('href', url.pathname + '?' + url.searchParams.toString());
+            };
+            ['ogx_city', 'ogx_district', 'ogx_slot'].forEach((id) => {
+                const el = document.getElementById(id);
+                el?.addEventListener('input', function (event) {
+                    if (event && event.isTrusted === false) {
+                        return;
+                    }
+                    window.__ogxLegacyBuildingPickerPrefilled = false;
+                    syncHiddenFromVisible();
+                    window.ogxRefreshTroopsVisionHref();
+                    const picker = document.getElementById('ogxBuildingPicker');
+                    if (picker) picker.value = '';
+                    scheduleMissionStats();
+                });
+            });
+            syncHiddenFromVisible();
+            window.ogxRefreshTroopsVisionHref();
+            scheduleMissionStats();
+            document.querySelectorAll('.ogx-mission-item').forEach((btn) => {
+                btn.addEventListener('click', function () {
+                    missionHidden.value = this.getAttribute('data-value') || '1';
+                    missionTrigger.textContent = this.textContent || ogxFleetLegacyI18n.missionDefaultLabel;
+                    missionSelect?.classList.remove('open');
+                    scheduleMissionStats();
+                });
+            });
+            missionTrigger?.addEventListener('click', function () {
+                missionSelect?.classList.toggle('open');
+            });
+            document.addEventListener('click', function (e) {
+                if (missionSelect && !missionSelect.contains(e.target)) {
+                    missionSelect.classList.remove('open');
+                }
+            });
+
+            let sendLocked = false;
+            let sendStarted = false;
+
+            function createDispatchNonce() {
+                if (window.crypto && typeof crypto.randomUUID === 'function') {
+                    return crypto.randomUUID();
+                }
+
+                return 'n' + Date.now() + '-' + Math.random().toString(16).slice(2);
+            }
+
+            function lockSendButton(sendBtn) {
+                if (!sendBtn || sendLocked) {
+                    return;
+                }
+                sendLocked = true;
+                sendBtn.disabled = true;
+                sendBtn.setAttribute('aria-disabled', 'true');
+                sendBtn.classList.add('ogx-send-btn--locked');
+                sendBtn.textContent = ogxFleetLegacyI18n.btnSending || sendBtn.textContent;
+            }
+
+            function unlockSendButton(sendBtn) {
+                if (!sendBtn) {
+                    return;
+                }
+                sendLocked = false;
+                sendStarted = false;
+                sendBtn.disabled = false;
+                sendBtn.removeAttribute('aria-disabled');
+                sendBtn.classList.remove('ogx-send-btn--locked');
+                sendBtn.textContent = ogxFleetLegacyI18n.btnSend || 'Enviar';
+            }
+
+            const sendBtnEl = document.getElementById('ogxSendBtn');
+            sendBtnEl?.addEventListener('click', async function () {
+                if (ogxFleetOnVacation) {
+                    showMissionNotice(ogxFleetLegacyI18n.vacationBlocked, 'error');
+                    return;
+                }
+                const hasTroops = [...units, ...vtInputs].some(function (input) {
+                    return Number(input.value || 0) > 0;
+                });
+                if (!hasTroops) {
+                    showMissionNotice(ogxFleetLegacyI18n.needTroops, 'error');
+                    return;
+                }
+                if (sendStarted) {
+                    return;
+                }
+                sendStarted = true;
+                const sendBtn = this;
+                lockSendButton(sendBtn);
+                clearMissionNotice();
+                syncCoordsForDispatch();
+                await refreshMissionStats({ silent: true });
+                let sentOk = false;
+                const payload = new URLSearchParams();
+                payload.append('_token', csrf);
+                payload.append('galaxy', document.getElementById('ogx_galaxy').value);
+                payload.append('system', document.getElementById('ogx_system').value);
+                payload.append('position', document.getElementById('ogx_position').value);
+                payload.append('type', "1");
+                payload.append('mission', document.getElementById('ogx_mission').value);
+                payload.append('speed', '10');
+                payload.append('holdingtime', '0');
+                payload.append('union', '0');
+                payload.append('metal', document.getElementById('ogx_metal').value);
+                payload.append('crystal', document.getElementById('ogx_crystal').value);
+                payload.append('deuterium', document.getElementById('ogx_dollars').value);
+                payload.append('dollars', document.getElementById('ogx_dollars').value);
+                payload.append('alcohol', document.getElementById('ogx_alcohol').value);
+                payload.append('prioMetal', '2');
+                payload.append('prioCrystal', '3');
+                payload.append('prioDeuterium', '4');
+                const cityElSend = document.getElementById('ogx_city');
+                const districtElSend = document.getElementById('ogx_district');
+                const slotElSend = document.getElementById('ogx_slot');
+                if (cityElSend) payload.append('city', cityElSend.value);
+                if (districtElSend) payload.append('district', districtElSend.value);
+                if (slotElSend) payload.append('slot', slotElSend.value);
+                payload.append('dispatch_nonce', createDispatchNonce());
+
+                units.forEach((input) => {
+                    const val = Number(input.value || 0);
+                    if (val > 0) payload.append('am' + input.getAttribute('data-unit-id'), String(val));
+                });
+                vtInputs.forEach((input) => {
+                    const val = Number(input.value || 0);
+                    const k = input.getAttribute('data-vt-key');
+                    if (val > 0 && k) payload.append('vt_' + k, String(val));
+                });
+
+                try {
+                    const response = await fetch("https://vendettalegacy.es/ajax/fleet/dispatch/send-fleet", {
+                        method: 'POST',
+                        headers: { 'X-CSRF-TOKEN': csrf, 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                        body: payload.toString()
+                    });
+                    const data = await response.json();
+                    if (data && data.success) {
+                        sentOk = true;
+                        showMissionNotice(ogxFleetLegacyI18n.missionSent, 'success');
+                        window.location.href = data.redirectUrl || "https://vendettalegacy.es/fleet";
+                        return;
+                    }
+                    const err = (data?.errors?.[0]?.message) || data?.message || ogxFleetLegacyI18n.missionSendFailed;
+                    showMissionNotice(err, 'error');
+                    unlockSendButton(sendBtn);
+                } catch (e) {
+                    showMissionNotice(ogxFleetLegacyI18n.missionSendError, 'error');
+                    unlockSendButton(sendBtn);
+                }
+            });
+        })();
+    </script>
+        </div>
+    </div>
+    <div id="right">
+        <div id="planetbarcomponent" class="">
+            <div id="rechts">
+                                <div id="norm">
+                    <div id="myWorlds">
+                        <div id="countColonies">
+                            <p class="textCenter">
+                                <span>1/1</span> Planets
+                            </p>
+                        </div>
+                        <div id="planetList">
+                                                                                            <div class="smallplanet  "
+                                     data-planet-id="1921" id="planet-1">
+                                    <a href="http://vendettalegacy.es/fleet?cp=1921&amp;city=1&amp;district=4&amp;slot=60&amp;type=1"
+                                       data-link="http://vendettalegacy.es/fleet?cp=1921&amp;city=1&amp;district=4&amp;slot=60&amp;type=1"
+                                       title="<b>Homeworld [1:9:9]</b><br/>
+                                        
+                                        11,551km (0/162)<br>
+                                        6 to 46°C<br/>
+                                        <a href=&quot;https://vendettalegacy.es/overview?cp=1921&quot;>Overview</a><br/>
+                                        <a href=&quot;https://vendettalegacy.es/resources?cp=1921&quot;>Resources</a><br/>
+                                        <a href=&quot;https://vendettalegacy.es/research?cp=1921&quot;>Research</a><br/>
+                                        <a href=&quot;https://vendettalegacy.es/facilities?cp=1921&quot;>Facilities</a><br/>
+                                        <a href=&quot;https://vendettalegacy.es/shipyard?cp=1921&quot;>Shipyard</a><br/>
+                                        <a href=&quot;https://vendettalegacy.es/defense?cp=1921&quot;>Defense</a><br/>
+                                        <a href=&quot;https://vendettalegacy.es/fleet?cp=1921&quot;>Fleet</a><br/>
+                                        <a href=&quot;https://vendettalegacy.es/mapa?cp=1921?cp=1921&quot;>Map</a><br/>"
+                                       class="planetlink  tooltipRight tooltipClose js_hideTipOnMobile ipiHintable"
+                                       data-ipi-hint="ipiPlanetHomeplanet">
+                                                                                    <img class="planetPic js_replace2x"
+                                                 alt="Homeworld"
+                                                 src="https://vendettalegacy.es/img/planets/medium/water_9.png"
+                                                 width="48" height="48">
+                                                                                <span class="planet-name ">Homeworld</span>
+                                        <span class="planet-koords ">[1:9:9]</span>
+                                    </a>
+
+                                                                        
+                                    
+                                    
+                                                                    </div>
+                                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bannerSkyscrapercomponent" class="">
+            <div id="banner_skyscraper" class="desktop" name="banner_skyscraper">
+                <div style="position: relative;">
+                    <a class="tooltipLeft " title="" href="#TODO=shop">
+                        <img src="/img/banners/de0dadddb0285ba78b026ce18fc898.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Chat Bar -->
+<div id="chatBar">
+    <ul class="chat_bar_list">
+        <li id="chatBarPlayerList" class="chat_bar_pl_list_item">
+            <div class="cb_playerlist_box"
+                 style="display:none;">
+            </div>
+            <span class="onlineCount">0 Contact(s) online</span>
+        </li>
+    </ul><!-- END Chat Bar List -->
+</div>
+<!-- END Chat Bar -->
+
+<button class="scroll_to_top">
+    <span class="arrow"></span>Back to top
+</button>
+
+<div id="siteFooter">
+    <div class="content" style="font-size:10px">
+        <div class="fleft textLeft">
+            <a href="https://vendettalegacy.es/changelog" target="_blank" rel="noopener noreferrer">
+                1.0.8</a>
+            <span class="homeLink" style="cursor: default;">©
+                Vendetta Legacy. All rights reserved.</span>
+        </div>
+        <div class="fright textRight">
+            <a href="https://vendettalegacy.es/overlay/server-settings" class="overlay"
+               data-overlay-title="Server Settings" data-overlay-class="serversettingsoverlay"
+               data-overlay-popup-width="400" data-overlay-popup-height="510">Server Settings</a>|
+            <a href="http://wiki.ogame.org/" target="_blank">Help</a>|
+                        <a href="https://vendettalegacy.es/lang/en"  class="bold" >EN</a>|
+            <a href="https://vendettalegacy.es/lang/es" >ES</a>|
+            <a href="https://vendettalegacy.es/lang/it" >IT</a>|
+            <a href="https://vendettalegacy.es/lang/fr" >FR</a>|
+            <a href="https://vendettalegacy.es/lang/nl" >NL</a>|
+            <a href="https://vendettalegacy.es/lang/pt" >PT</a>|
+            <a href="https://vendettalegacy.es/lang/de" >DE</a>|
+            <a href="#">Board</a>|
+            <a class="overlay" href="https://vendettalegacy.es/ajax/main/rules"
+               data-overlay-title="Rules">Rules</a>|
+            <a class="overlay" href="https://vendettalegacy.es/ajax/main/legal"
+               data-overlay-title="Legal">Legal</a>
+        </div>
+    </div><!-- -->
+</div>
+
+<!-- #MMO:NETBAR# -->
+<div id="pagefoldtarget"></div>
+
+<!-- ogame/en ingame 16.12.2017 12:46 -->
+<script type="text/javascript">
+    //mmoInitSelect();
+    //mmoTicker();    mmoToggleDisplay.init("mmoGamesOverviewPanel");
+
+            </script>
+
+
+<!-- #/MMO:NETBAR# -->
+<div id="decisionTB" style="display:none;">
+    <div id="errorBoxDecision" class="errorBox TBfixedPosition">
+        <div class="head"><h4 id="errorBoxDecisionHead">-</h4></div>
+        <div class="middle">
+            <span id="errorBoxDecisionContent">-</span>
+            <div class="response">
+                <div style="float:left; width:180px;">
+                    <a href="javascript:void(0);" class="yes"><span id="errorBoxDecisionYes">.</span></a>
+                </div>
+                <div style="float:left; width:180px;">
+                    <a href="javascript:void(0);" class="no"><span id="errorBoxDecisionNo">.</span></a>
+                </div>
+                <br class="clearfloat"/>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+</div>
+
+<div id="fadeBox" class="fadeBox fixedPostion" style="display:none;">
+    <span id="fadeBoxStyle" class="success"></span>
+    <p id="fadeBoxContent"></p>
+</div>
+
+<div id="notifyTB" style="display:none;">
+    <div id="errorBoxNotify" class="errorBox TBfixedPosition">
+        <div class="head"><h4 id="errorBoxNotifyHead">-</h4></div>
+        <div class="middle">
+            <span id="errorBoxNotifyContent">-</span>
+            <div class="response">
+                <div>
+                    <a href="javascript:void(0);" class="ok">
+                        <span id="errorBoxNotifyOk">.</span>
+                    </a>
+                </div>
+                <br class="clearfloat"/>
+            </div>
+        </div>
+        <div class="foot"></div>
+    </div>
+</div>
+<script type="text/javascript">var visibleChats = {"players": [], "associations": []};
+    var bigChatLink = "https://vendettalegacy.es/overview";
+    var locaKeys = {"bold":"Bold","italic":"Italic","underline":"Underline","stroke":"Strikethrough","sub":"Subscript","sup":"Superscript","fontColor":"Font colour","fontSize":"Font size","backgroundColor":"Background colour","backgroundImage":"Background image","tooltip":"Tool-tip","alignLeft":"Left align","alignCenter":"Centre align","alignRight":"Right align","alignJustify":"Justify","block":"Break","code":"Code","spoiler":"Spoiler","moreopts":"More Options","list":"List","hr":"Horizontal line","picture":"Image","link":"Link","email":"Email","player":"Player","item":"Item","coordinates":"Coordinates","preview":"Preview","textPlaceHolder":"Text...","playerPlaceHolder":"Player ID or name","itemPlaceHolder":"Item ID","coordinatePlaceHolder":"Galaxy:system:position","charsLeft":"Characters remaining","colorPicker":{"ok":"Ok","cancel":"Cancel","rgbR":"R","rgbG":"G","rgbB":"B"},"backgroundImagePicker":{"ok":"Ok","repeatX":"Repeat horizontally","repeatY":"Repeat vertically"}};</script>
+<script type="text/javascript">
+    (function () {
+        var MOBILE_BP = 1050;
+        var body = document.body;
+        var toggle = document.getElementById('ogxMobileMenuToggle');
+        var backdrop = document.getElementById('ogxMobileMenuBackdrop');
+        var leftMenu = document.getElementById('left');
+
+        if (!toggle || !backdrop || !leftMenu || !body) {
+            return;
+        }
+
+        function isMobileViewport() {
+            return window.innerWidth <= MOBILE_BP;
+        }
+
+        function openMenu() {
+            if (!isMobileViewport()) {
+                return;
+            }
+            body.classList.add('ogx-mobile-menu-open');
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.setAttribute('aria-label', 'Cerrar menú');
+        }
+
+        function closeMenu() {
+            body.classList.remove('ogx-mobile-menu-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Abrir menú');
+        }
+
+        toggle.addEventListener('click', function () {
+            if (body.classList.contains('ogx-mobile-menu-open')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && body.classList.contains('ogx-mobile-menu-open')) {
+                closeMenu();
+            }
+        });
+
+        window.addEventListener('resize', function () {
+            if (!isMobileViewport()) {
+                closeMenu();
+            }
+        });
+    })();
+</script>
+<div id="ogxVpSessionDialog" class="ogx-vp-session-dialog" hidden>
+    <div class="ogx-vp-session-dialog__backdrop" id="ogxVpSessionDialogBackdrop" tabindex="-1"></div>
+    <div class="ogx-vp-session-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="ogxVpSessionDialogTitle">
+        <button type="button" class="ogx-vp-session-dialog__close" id="ogxVpSessionDialogClose" aria-label="Close">×</button>
+        <div class="ogx-vp-session-dialog__head">
+            <div class="ogx-vp-session-dialog__head-date" id="ogxVpSessionDlgServerDate">—</div>
+            <div class="ogx-vp-session-dialog__head-time" id="ogxVpSessionDlgServerTime">—</div>
+        </div>
+        <div class="ogx-vp-session-dialog__body">
+            <div class="ogx-vp-session-dialog__expire-title" id="ogxVpSessionDialogTitle">Session expiry (idle)</div>
+            <div class="ogx-vp-session-dialog__expire-date" id="ogxVpSessionDlgExpireDate">—</div>
+            <div class="ogx-vp-session-dialog__expire-time" id="ogxVpSessionDlgExpireTime">—</div>
+            <p class="ogx-vp-session-dialog__hint" id="ogxVpSessionDlgHint"></p>
+            <p class="ogx-vp-session-dialog__status" id="ogxVpSessionDlgStatus" role="status"></p>
+        </div>
+    </div>
+</div>
+<script>
+(function () {
+    var btn = document.getElementById('ogxVpSessionClockBtn');
+    var dlg = document.getElementById('ogxVpSessionDialog');
+    if (!btn || !dlg) return;
+    var url = btn.getAttribute('data-session-status-url');
+    var elBackdrop = document.getElementById('ogxVpSessionDialogBackdrop');
+    var elClose = document.getElementById('ogxVpSessionDialogClose');
+    var elSrvDate = document.getElementById('ogxVpSessionDlgServerDate');
+    var elSrvTime = document.getElementById('ogxVpSessionDlgServerTime');
+    var elExDate = document.getElementById('ogxVpSessionDlgExpireDate');
+    var elExTime = document.getElementById('ogxVpSessionDlgExpireTime');
+    var elHint = document.getElementById('ogxVpSessionDlgHint');
+    var elStatus = document.getElementById('ogxVpSessionDlgStatus');
+
+    function openDlg() {
+        dlg.hidden = false;
+        document.body.style.overflow = 'hidden';
+        elHint.textContent = btn.getAttribute('data-str-idle-hint') || '';
+        elStatus.textContent = '';
+        elStatus.className = 'ogx-vp-session-dialog__status';
+        fetch(url, {
+            method: 'GET',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }).then(function (r) {
+            if (r.status === 401 || r.status === 419) {
+                elSrvDate.textContent = '—';
+                elSrvTime.textContent = '—';
+                elExDate.textContent = '—';
+                elExTime.textContent = '—';
+                elStatus.textContent = btn.getAttribute('data-str-session-expired') || '';
+                elStatus.classList.add('ogx-vp-session-dialog__status--bad');
+                return null;
+            }
+            if (!r.ok) {
+                throw new Error('bad status');
+            }
+            return r.json();
+        }).then(function (j) {
+            if (!j || !j.ok) {
+                if (elStatus.textContent) return;
+                throw new Error('no json');
+            }
+            elSrvDate.textContent = j.server_time_date || '—';
+            elSrvTime.textContent = j.server_time_clock || '—';
+            elExDate.textContent = j.session_idle_expire_date || '—';
+            elExTime.textContent = j.session_idle_expire_clock || '—';
+            elStatus.textContent = btn.getAttribute('data-str-connected') || '';
+            elStatus.classList.add('ogx-vp-session-dialog__status--ok');
+        }).catch(function () {
+            if (elStatus.textContent) return;
+            elSrvDate.textContent = '—';
+            elSrvTime.textContent = '—';
+            elExDate.textContent = '—';
+            elExTime.textContent = '—';
+            elStatus.textContent = btn.getAttribute('data-str-disconnected') || '';
+            elStatus.classList.add('ogx-vp-session-dialog__status--bad');
+        });
+    }
+
+    function closeDlg() {
+        dlg.hidden = true;
+        document.body.style.overflow = '';
+    }
+
+    btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openDlg();
+    });
+    if (elBackdrop) elBackdrop.addEventListener('click', closeDlg);
+    if (elClose) elClose.addEventListener('click', closeDlg);
+    document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape' && !dlg.hidden) {
+            closeDlg();
+        }
+    });
+})();
+</script>
+</body>
+</html>

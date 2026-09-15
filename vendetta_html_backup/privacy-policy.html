@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="zbCIGtmuVQ2xLBYf2IQdmnjjVRQKvmCYmuwV0UQV">
+    <title>Privacy Policy — Vendetta</title>
+    <meta property="og:title" content="Privacy Policy — Vendetta">
+    <meta property="og:site_name" content="vendettalegacy.es">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vendettalegacy.es/privacy-policy">
+    <meta name="description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+    <meta property="og:image:alt" content="Vendetta Legacy">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+    <link rel="apple-touch-icon" href="/img/outgame/20da7e6c416e6cd5f8544a73f588e5.png"/>
+    <link rel="stylesheet" href="https://vendettalegacy.es/css/outgame-vendetta-login.css">
+    <script>
+(function () {
+    var exp = 'Thu, 01 Jan 1970 00:00:00 GMT';
+    function del(name) {
+        if (!name || name.indexOf('ogx_sess_') !== 0) {
+            return;
+        }
+        var host = location.hostname || '';
+        var bases = ['', host];
+        if (host.indexOf('.') !== -1) {
+            bases.push('.' + host);
+        }
+        ['/', '/login', '/register'].forEach(function (path) {
+            bases.forEach(function (domain) {
+                document.cookie = name + '=;' + exp + ';path=' + path + (domain ? ';domain=' + domain : '');
+            });
+        });
+    }
+    document.cookie.split(';').forEach(function (part) {
+        var name = (part.split('=')[0] || '').trim();
+        if (name.indexOf('ogx_sess_') === 0) {
+            del(name);
+        }
+    });
+})();
+</script>
+</head>
+<body class="vendetta-login-body">
+<main class="vendetta-login-main">
+    <div class="vendetta-legal-page">
+    <div class="vendetta-legal-panel">
+        <p class="vendetta-legal-back-row">
+            <a class="vendetta-legal-back" href="https://vendettalegacy.es/login">&larr; Back to login</a>
+        </p>
+        <h1 class="vendetta-legal-title">Privacy Policy</h1>
+        <div class="vendetta-legal-body">
+            <h2>1. Data controller</h2>
+<p>Vendetta Legacy is an online game. Data you provide when registering or playing (username, email, encrypted password, in-game activity) is used only to operate the service.</p>
+<h2>2. What we collect</h2>
+<ul>
+<li>Account data: username, email and password.</li>
+<li>Game data: progress, messages, alliances and actions in the universe.</li>
+<li>Technical data: IP address, browser and session cookies to keep your login secure.</li>
+<li>If you subscribe to VIP: PayPal processes payment; we store subscription ID and renewal dates.</li>
+</ul>
+<h2>3. How we use it</h2>
+<p>To create your account, let you play, protect the server, enforce rules, provide support and, if you opt in, manage VIP subscription.</p>
+<h2>4. Retention</h2>
+<p>We keep data while your account is active or as required by law or game security.</p>
+<h2>5. Your rights</h2>
+<p>You may request access, correction or deletion by contacting game administration, except data we must keep by law or for shared-universe integrity.</p>
+<h2>6. Cookies</h2>
+<p>We use technical session cookies for secure login. We do not sell your data to third parties.</p>
+        </div>
+        <p class="vendetta-legal-footer-links">
+            <a href="https://vendettalegacy.es/privacy-policy">Privacy Policy</a>
+            <span class="vendetta-meta-dot">·</span>
+            <a href="https://vendettalegacy.es/terms-of-use">Terms of Use</a>
+        </p>
+    </div>
+</div>
+</main>
+</body>
+</html>

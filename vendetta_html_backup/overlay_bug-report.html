@@ -1,0 +1,68 @@
+<div class="content">
+    <div id="one" class="wrap">
+        <form method="post" action="https://vendettalegacy.es/overlay/bug-report" class="formValidation">
+            <input type="hidden" name="_token" value="mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd" autocomplete="off">            <div class="group bborder">
+                <p class="box_highlight textCenter" style="font-size:11px; margin:0;">Send report</p>
+                <p style="padding: 8px 10px; font-size: 11px; color: #ccc;">
+                    Tell us what went wrong. The more detail you give, the easier it is to fix.
+                </p>
+
+                <div class="fieldwrapper">
+                    <label class="styled textBeefy" for="bug_player">Your character</label>
+                    <div class="thefield">profe matias prestes <span style="color:#888;">(Bomberox)</span></div>
+                </div>
+
+                <div class="fieldwrapper">
+                    <label class="styled textBeefy" for="bug_subject">Subject</label>
+                    <div class="thefield">
+                        <input type="text"
+                               id="bug_subject"
+                               name="subject"
+                               class="textInput w300 textBeefy"
+                               maxlength="200"
+                               required
+                               placeholder="E.g.: Cannot send troops">
+                    </div>
+                </div>
+
+                <div class="fieldwrapper">
+                    <label class="styled textBeefy" for="bug_message">Bug description</label>
+                    <div class="thefield">
+                        <textarea id="bug_message"
+                                  name="message"
+                                  class="textInput w300 textBeefy"
+                                  rows="5"
+                                  maxlength="5000"
+                                  required
+                                  placeholder="Explain what you did, what you expected, and what happened instead."></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" name="page_url" id="bug_page_url" value="">
+
+                <div class="textCenter" style="margin-top: 10px;">
+                    <input type="submit" class="btn_blue" value="Send report">
+                </div>
+            </div>
+        </form>
+
+        <div class="group bborder" style="margin-top: 12px;">
+            <p class="box_highlight textCenter" style="font-size:11px; margin:0;">My reports</p>
+            <p style="padding: 6px 10px; font-size: 10px; color: #aaa; text-align: center;">
+                See what you sent and the current status (received, reviewing, implemented…).
+            </p>
+
+                            <p style="text-align:center; padding: 10px; font-size: 11px; color: #888;">
+                    You have not sent any reports yet.
+                </p>
+                    </div>
+    </div>
+</div>
+<script>
+    (function () {
+        var input = document.getElementById('bug_page_url');
+        if (input) {
+            input.value = window.location.href || '';
+        }
+    })();
+</script>

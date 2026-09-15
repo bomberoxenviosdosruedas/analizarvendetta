@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="zbCIGtmuVQ2xLBYf2IQdmnjjVRQKvmCYmuwV0UQV">
+    <title>Terms of Use — Vendetta</title>
+    <meta property="og:title" content="Terms of Use — Vendetta">
+    <meta property="og:site_name" content="vendettalegacy.es">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vendettalegacy.es/terms-of-use">
+    <meta name="description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+    <meta property="og:image:alt" content="Vendetta Legacy">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+    <link rel="apple-touch-icon" href="/img/outgame/20da7e6c416e6cd5f8544a73f588e5.png"/>
+    <link rel="stylesheet" href="https://vendettalegacy.es/css/outgame-vendetta-login.css">
+    <script>
+(function () {
+    var exp = 'Thu, 01 Jan 1970 00:00:00 GMT';
+    function del(name) {
+        if (!name || name.indexOf('ogx_sess_') !== 0) {
+            return;
+        }
+        var host = location.hostname || '';
+        var bases = ['', host];
+        if (host.indexOf('.') !== -1) {
+            bases.push('.' + host);
+        }
+        ['/', '/login', '/register'].forEach(function (path) {
+            bases.forEach(function (domain) {
+                document.cookie = name + '=;' + exp + ';path=' + path + (domain ? ';domain=' + domain : '');
+            });
+        });
+    }
+    document.cookie.split(';').forEach(function (part) {
+        var name = (part.split('=')[0] || '').trim();
+        if (name.indexOf('ogx_sess_') === 0) {
+            del(name);
+        }
+    });
+})();
+</script>
+</head>
+<body class="vendetta-login-body">
+<main class="vendetta-login-main">
+    <div class="vendetta-legal-page">
+    <div class="vendetta-legal-panel">
+        <p class="vendetta-legal-back-row">
+            <a class="vendetta-legal-back" href="https://vendettalegacy.es/login">&larr; Back to login</a>
+        </p>
+        <h1 class="vendetta-legal-title">Terms of Use</h1>
+        <div class="vendetta-legal-body">
+            <h2>1. Acceptance</h2>
+<p>By registering or logging in to Vendetta Legacy you accept these terms and the game rules published by administration.</p>
+<h2>2. Account</h2>
+<ul>
+<li>One person, one account. Password sharing and multi-accounting are not allowed.</li>
+<li>You are responsible for activity on your account.</li>
+<li>Names, images and text must not be offensive, illegal or infringe third-party rights.</li>
+</ul>
+<h2>3. Fair play</h2>
+<p>You must play fairly: no bug abuse, scripts, illegal pushing, bashing or behaviour that harms other players. Breaches may lead to sanctions or bans.</p>
+<h2>4. Virtual goods</h2>
+<p>Buildings, resources, troops and other in-game items are virtual and belong to the service. Selling accounts or assets outside the game is not permitted.</p>
+<h2>5. VIP and payments</h2>
+<p>VIP subscription, when available, is billed via PayPal. You may cancel; the paid period remains valid until its end date. No refunds for player errors except where required by applicable law.</p>
+<h2>6. Availability</h2>
+<p>The game is provided "as is". Maintenance, balance changes or outages may occur without prior notice.</p>
+<h2>7. Changes</h2>
+<p>We may update these terms and game rules. Continued use implies acceptance.</p>
+        </div>
+        <p class="vendetta-legal-footer-links">
+            <a href="https://vendettalegacy.es/privacy-policy">Privacy Policy</a>
+            <span class="vendetta-meta-dot">·</span>
+            <a href="https://vendettalegacy.es/terms-of-use">Terms of Use</a>
+        </p>
+    </div>
+</div>
+</main>
+</body>
+</html>

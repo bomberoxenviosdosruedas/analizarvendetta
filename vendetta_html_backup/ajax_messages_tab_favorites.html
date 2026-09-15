@@ -1,0 +1,185 @@
+<div id="defaultmessagespage" class="ogx-default-messages-page" data-ogx-msg-tab="favorites" data-ogx-msg-subtab="favorites">
+    <div class="tab_ctn">
+                <ul class="tab_inner clearfix">
+                        <ul class="pagination">
+                <li class="paginator  disabled " data-tab="3" data-page="1">|&lt;&lt;</li>
+                <li class="paginator  disabled " data-tab="3" data-page="1">&lt;</li>
+                <li class="curPage" data-tab="3">1/1</li>
+                <li class="paginator  disabled " data-tab="3" data-page="1">&gt;</li>
+                <li class="paginator  disabled " data-tab="3" data-page="1">&gt;&gt;|</li>
+            </ul>
+            <input type="hidden" name="token" value="b5e7750a20009bf4c875f592bcc7a432">
+                                        <li class="no_msg">
+                    There are currently no messages available in this tab
+                </li>
+                <br>
+                                    <ul class="pagination">
+                <li class="paginator  disabled " data-tab="3" data-page="1">|&lt;&lt;</li>
+                <li class="paginator  disabled " data-tab="3" data-page="1">&lt;</li>
+                <li class="curPage" data-tab="3">1/1</li>
+                <li class="paginator  disabled " data-tab="3" data-page="1">&gt;</li>
+                <li class="paginator  disabled " data-tab="3" data-page="1">&gt;&gt;|</li>
+            </ul>
+        </ul>
+        <div id="ogx-msg-reply-box" class="ogx-msg-reply-box" style="display:none; margin:10px 8px; padding:10px; border:1px solid #3a0808; background:#1a1512;">
+            <p class="ogx-msg-reply-title" style="margin:0 0 8px; color:#7eb8ff; font-weight:700;"></p>
+            <textarea id="ogx-msg-reply-text" maxlength="2000" rows="4" style="width:100%; box-sizing:border-box; background:#0d0d1a; color:#eee; border:1px solid #444;"></textarea>
+            <div style="margin-top:8px;">
+                <button type="button" class="btn_blue" id="ogx-msg-reply-send">send</button>
+                <button type="button" class="btn_blue" id="ogx-msg-reply-cancel" style="margin-left:6px;">t_ingame.messages.reply_cancel</button>
+                <span id="ogx-msg-reply-status" style="display:none; margin-left:10px; color:#2ecc71; font-weight:700;"></span>
+            </div>
+        </div>
+        <script type="text/javascript">
+    var activeTabid = $('.ui-tabs-active a').attr('id'); //erster tab als default
+    var hasSubtabs = $('div[aria-labelledby="' + activeTabid + '"] .tab_ctn div ul.subtabs').length;
+    var activeSubtabid = '';
+
+    $('.ui-tabs-active a').each(function () {
+        activeSubtabid = $(this).attr('id');
+    });
+
+    var msgids = [];
+    var index = 0;
+
+    if (hasSubtabs > 0) {
+        $('div[aria-labelledby="' + activeSubtabid + '"] .msg_new').each(function () {
+            msgids[index] = $(this).data('msg-id');
+            index++;
+        });
+    } else {
+        $('div[aria-labelledby="' + activeTabid + '"] .msg_new').each(function () {
+            msgids[index] = $(this).data('msg-id');
+            index++;
+        });
+    }
+
+    msgids = JSON.stringify(msgids);
+
+    // Remove new message count indicator as soon as the tab is opened
+    var message_menu_count = $('.comm_menu.messages span.new_msg_count');
+    var message_tab_count = $('.ui-tabs-active .new_msg_count');
+
+    if (message_menu_count.length > 0 && message_tab_count.length > 0) {
+        var menuCount = parseInt(message_menu_count[0].innerHTML);
+        var tabCount = parseInt(message_tab_count[0].innerHTML);
+        var newCount = menuCount - tabCount;
+
+        if (newCount > 0) {
+            message_menu_count.html(newCount);
+        } else {
+            message_menu_count.remove();
+        }
+    }
+
+    $('.ui-tabs-active .new_msg_count').remove();
+
+    if (hasSubtabs > 0) {
+        $('.ui-tabs-active a span:not(.icon_caption)').remove();
+    }
+</script>        <script>
+(function ($) {
+    if (window.__ogxPrivateMsgUiBound) {
+        return;
+    }
+    window.__ogxPrivateMsgUiBound = true;
+
+    var postUrl = "https:\/\/vendettalegacy.es\/messages";
+        var replyUrlBase = "https:\/\/vendettalegacy.es\/highscore\/player";
+    var csrf = "mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd";
+    var i18n = {
+        confirmDeleteAll: "t_ingame.messages.delete_all_confirm",
+        replyTo: "t_ingame.messages.reply_to_named",
+        sent: "t_ingame.messages.reply_sent",
+        failed: "An error has occurred",
+        textEmpty: "Write a message before sending.",
+        textTooLong: "The message is too long.",
+        ignoredUser: "You cannot message this player.",
+    };
+
+    var replyPlayerId = 0;
+
+    function currentTabContext($root) {
+        return {
+            tab: String($root.data('ogx-msg-tab') || ''),
+            subtab: String($root.data('ogx-msg-subtab') || ''),
+        };
+    }
+
+    $(document).on('click', '.js_ogx_delete_all_msgs', function () {
+        if (!confirm(i18n.confirmDeleteAll)) {
+            return;
+        }
+        var $root = $(this).closest('.ogx-default-messages-page');
+        var ctx = currentTabContext($root);
+        $.post(postUrl, {
+            _token: csrf,
+            action: 103,
+            messageId: -1,
+            tab: ctx.tab,
+            subtab: ctx.subtab,
+            ajax: 1,
+        }).done(function (res) {
+            if (res && res.result === true) {
+                location.reload();
+            } else {
+                fadeBox(i18n.failed, 1);
+            }
+        }).fail(function () {
+            fadeBox(i18n.failed, 1);
+        });
+    });
+
+    $(document).on('click', '.js_ogx-reply-private-msg', function () {
+        replyPlayerId = parseInt($(this).data('player-id'), 10) || 0;
+        var name = String($(this).data('player-name') || '');
+        if (!replyPlayerId) {
+            return;
+        }
+        var $box = $('#ogx-msg-reply-box');
+        $box.find('.ogx-msg-reply-title').text(i18n.replyTo.replace(':name', name));
+        $('#ogx-msg-reply-status').hide().text('');
+        $('#ogx-msg-reply-text').val('').focus();
+        $box.slideDown(150);
+        $('html, body').animate({ scrollTop: $box.offset().top - 80 }, 200);
+    });
+
+    $(document).on('click', '#ogx-msg-reply-cancel', function () {
+        $('#ogx-msg-reply-box').slideUp(150);
+        replyPlayerId = 0;
+    });
+
+    $(document).on('click', '#ogx-msg-reply-send', function () {
+        if (!replyPlayerId) {
+            return;
+        }
+        var text = $.trim($('#ogx-msg-reply-text').val());
+        var $status = $('#ogx-msg-reply-status');
+        $status.hide().text('');
+        if (!text) {
+            $status.css('color', '#e74c3c').text(i18n.textEmpty).show();
+            return;
+        }
+        var url = replyUrlBase + '/' + replyPlayerId + '/message';
+        $.post(url, { _token: csrf, text: text })
+            .done(function (res) {
+                if (res && res.status === 'OK') {
+                    $('#ogx-msg-reply-text').val('');
+                    $status.css('color', '#2ecc71').text(i18n.sent).show();
+                    return;
+                }
+                var map = {
+                    TEXT_EMPTY: i18n.textEmpty,
+                    TEXT_TOO_LONG: i18n.textTooLong,
+                    IGNORED_USER: i18n.ignoredUser,
+                };
+                $status.css('color', '#e74c3c').text(map[res && res.status] || i18n.failed).show();
+            })
+            .fail(function () {
+                $status.css('color', '#e74c3c').text(i18n.failed).show();
+            });
+    });
+})(jQuery);
+</script>
+    </div>
+</div>

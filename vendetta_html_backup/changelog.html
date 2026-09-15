@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="mZB1N04DRn5OszS0eJTblcWA5r8MslIXNH7ZcnDd">
+    <title>Changelog history — Vendetta</title>
+    <meta property="og:title" content="Changelog history — Vendetta">
+    <meta property="og:site_name" content="vendettalegacy.es">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vendettalegacy.es/changelog">
+    <meta name="description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:description" content="Vendetta Legacy — online strategy game.">
+    <meta property="og:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+    <meta property="og:image:alt" content="Vendetta Legacy">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://vendettalegacy.es/img/vendetta-theme/vendetta-logo.png">
+    <link rel="apple-touch-icon" href="/img/outgame/20da7e6c416e6cd5f8544a73f588e5.png"/>
+    <link rel="stylesheet" href="https://vendettalegacy.es/css/outgame-vendetta-login.css">
+    <script>
+(function () {
+    var exp = 'Thu, 01 Jan 1970 00:00:00 GMT';
+    function del(name) {
+        if (!name || name.indexOf('ogx_sess_') !== 0) {
+            return;
+        }
+        var host = location.hostname || '';
+        var bases = ['', host];
+        if (host.indexOf('.') !== -1) {
+            bases.push('.' + host);
+        }
+        ['/', '/login', '/register'].forEach(function (path) {
+            bases.forEach(function (domain) {
+                document.cookie = name + '=;' + exp + ';path=' + path + (domain ? ';domain=' + domain : '');
+            });
+        });
+    }
+    document.cookie.split(';').forEach(function (part) {
+        var name = (part.split('=')[0] || '').trim();
+        if (name.indexOf('ogx_sess_') === 0) {
+            del(name);
+        }
+    });
+})();
+</script>
+</head>
+<body class="vendetta-login-body">
+<main class="vendetta-login-main">
+    <div class="vendetta-legal-page">
+    <div class="vendetta-legal-panel">
+        <p class="vendetta-legal-back-row">
+            <a class="vendetta-legal-back" href="https://vendettalegacy.es/login">&larr; Back to login</a>
+        </p>
+        <h1 class="vendetta-legal-title">Changelog history</h1>
+        <p class="vendetta-changelog-current">
+            Current game version: 1.0.8
+        </p>
+
+                    <article class="vendetta-changelog-entry">
+                <h2 class="vendetta-changelog-entry__title">
+                    Version 1.0.8 — 2026-08-04 18:47
+                </h2>
+                                    <div class="vendetta-legal-body vendetta-changelog-entry__body">
+                        📢 Resumen de las últimas actualizaciones<br />
+<br />
+Seguimos mejorando el juego y corrigiendo errores para ofrecer una experiencia cada vez más estable y fiel a Vendetta Plus.<br />
+<br />
+⚔️ Aviso de ataques entrantes<br />
+<br />
+En la visión general / menú de misiones: icono de espadas con contador.<br />
+<br />
+Las espadas quedan fijas; solo cambia el número.<br />
+Solo aparece cuando te atacan; si retiran el ataque, el número baja o desaparece.<br />
+Solo visual: no se puede pulsar.<br />
+✅ Implementado.<br />
+<br />
+📦 Aviso de transportes<br />
+<br />
+Igual que los ataques, pero al otro lado: icono de transporte con contador cuando te transportan o tú transportas.<br />
+<br />
+✅ Implementado.<br />
+<br />
+🕵️ Informes de espionaje<br />
+<br />
+Los informes se ven como un combate real: puntuaciones de ataque/defensa y bajas reales del contraespionaje (ya no salen “0” cuando sí hubo pérdidas).<br />
+<br />
+✅ Implementado.<br />
+<br />
+🏆 Clasificación de servidores<br />
+<br />
+Nuevo apartado debajo de Clasificación para ver las clasificaciones de otros servidores.<br />
+<br />
+✅ Implementado.<br />
+<br />
+💡 Sugerencias: borrar<br />
+<br />
+En Sugerencias puedes borrar entradas (admin cualquiera; cada jugador las suyas si siguen pendientes).<br />
+<br />
+✅ Implementado.<br />
+<br />
+🌍 Alemán y chat traducido<br />
+<br />
+Idioma alemán con bandera en ranking y login, como el resto.<br />
+Refuerzo de textos en menús, visión general e interfaz.<br />
+El chat usa el idioma del jugador (ya no frases fijas solo en español).<br />
+✅ Implementado.<br />
+<br />
+🧪 Simulador de batalla<br />
+<br />
+Nuevo menú debajo de Misiones.<br />
+<br />
+Simula combates sin gastar tropas.<br />
+Resultado como un informe de combate real.<br />
+Puedes poner tropas y entrenamientos distintos en atacante y defensor.<br />
+✅ Implementado.<br />
+<br />
+🖥️ Varios servidores a la vez<br />
+<br />
+Cada servidor guarda su propia sesión de cuenta.<br />
+URLs por mundo (/w/s1/..., /w/s2/...) para que dos pestañas no se pisen.<br />
+Corregido el bucle de redirecciones al entrar.<br />
+✅ Implementado.
+                    </div>
+                            </article>
+                    <article class="vendetta-changelog-entry">
+                <h2 class="vendetta-changelog-entry__title">
+                    Version 1.0.7 — 2026-07-23 17:35
+                </h2>
+                                    <div class="vendetta-legal-body vendetta-changelog-entry__body">
+                        📢 Resumen de las últimas actualizaciones<br />
+<br />
+Seguimos mejorando el juego y corrigiendo errores para ofrecer una experiencia cada vez más estable y fiel a Vendetta Plus.<br />
+<br />
+---<br />
+<br />
+🚚 Transporte con la misión Estacionar<br />
+<br />
+Se ha ampliado el funcionamiento de la misión Estacionar.<br />
+<br />
+- Ahora también es posible transportar recursos utilizando esta misión.<br />
+- Facilita el envío de ayuda y recursos entre jugadores.<br />
+<br />
+✅ Implementado.<br />
+<br />
+---<br />
+<br />
+💬 Eliminación de todos los mensajes<br />
+<br />
+Se ha añadido una nueva opción para la mensajería.<br />
+<br />
+- Ahora puedes borrar todos tus mensajes con un solo clic.<br />
+- Permite mantener la bandeja de entrada limpia de forma rápida y cómoda.<br />
+<br />
+✅ Implementado.<br />
+<br />
+---<br />
+<br />
+🗺️ Mejoras en el mapa<br />
+<br />
+Se han realizado mejoras en el selector de jugadores.<br />
+<br />
+- Al seleccionar el nombre de un jugador, todos sus edificios se resaltarán automáticamente en el mapa.<br />
+- Además, el nombre mostrado en el selector ahora coincide exactamente con el nombre de la clasificación, evitando confusiones.<br />
+<br />
+✅ Implementado.<br />
+<br />
+---<br />
+<br />
+🕵️ Mejoras en los informes de espionaje<br />
+<br />
+Se han optimizado los informes obtenidos tras una misión de espionaje.<br />
+<br />
+- La información mostrada es ahora más clara y precisa.<br />
+- Se han corregido varios errores que afectaban a algunos informes.<br />
+- Mayor fiabilidad en los datos obtenidos.<br />
+<br />
+✅ Implementado.<br />
+<br />
+---<br />
+<br />
+⚔️ Nuevo motor de combate<br />
+<br />
+Se ha sustituido completamente el antiguo motor de combate de OGame por el motor original de Vendetta Plus.<br />
+<br />
+- Los combates son ahora mucho más fieles al funcionamiento original.<br />
+- Se han corregido resultados incorrectos que podían producirse anteriormente.<br />
+- El sistema ofrece cálculos más precisos y coherentes.<br />
+- A partir de ahora todas las futuras mejoras del combate se realizarán sobre este nuevo motor.<br />
+<br />
+✅ Implementado.<br />
+<br />
+---<br />
+<br />
+🛠️ Corrección de errores y optimización<br />
+<br />
+Además de las novedades anteriores, se han realizado diversas correcciones y optimizaciones.<br />
+<br />
+- Corrección de errores detectados por la comunidad.<br />
+- Mejoras de estabilidad y rendimiento.<br />
+- Optimización general del juego.<br />
+- Preparación del sistema para futuras actualizaciones.<br />
+<br />
+Seguimos trabajando para mejorar el juego y añadir nuevas funciones. ¡Gracias a todos por vuestro apoyo y por seguir ayudándonos a mejorar el proyecto!
+                    </div>
+                            </article>
+                    <article class="vendetta-changelog-entry">
+                <h2 class="vendetta-changelog-entry__title">
+                    Version 1.0.6 — 2026-06-29 23:07
+                </h2>
+                                    <div class="vendetta-legal-body vendetta-changelog-entry__body">
+                        Resumen de todos los cambios recientes<br />
+<br />
+---<br />
+<br />
+Mapa<br />
+<br />
+1. Nuevo sistema de paseo de tropas<br />
+<br />
+Se ha añadido una nueva función en el mapa.<br />
+<br />
+- Ahora puedes seleccionar una casilla vacía del mapa.<br />
+- Tus tropas podrán desplazarse hasta esa posición sin necesidad de atacar a ningún jugador.<br />
+- Una vez lleguen al destino, regresarán automáticamente a tu ciudad.<br />
+- Esta función permite realizar movimientos de tropas de forma más cómoda.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Reclutamiento y Seguridad<br />
+<br />
+2. Eliminación del límite de la cola<br />
+<br />
+Mejora importante en los edificios de Reclutamiento y Seguridad.<br />
+<br />
+- Se ha eliminado el límite existente en la cola de producción.<br />
+- Ahora podrás añadir todas las unidades que desees, funcionando como debería desde el principio.<br />
+- Facilita la planificación del entrenamiento sin interrupciones.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Interfaz del jugador<br />
+<br />
+3. Botones inteligentes según los recursos<br />
+<br />
+Mejora visual en toda la interfaz del juego.<br />
+<br />
+- Cuando no dispongas de los recursos necesarios para realizar una acción, los botones aparecerán en color rojo.<br />
+- Esto permite identificar rápidamente qué acciones no puedes realizar en ese momento.<br />
+- La interfaz resulta más clara e intuitiva.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Opciones<br />
+<br />
+4. Limpieza y reorganización del menú<br />
+<br />
+Se han realizado mejoras en el apartado de Opciones.<br />
+<br />
+- Se han eliminado varios ajustes innecesarios.<br />
+- El menú queda más limpio y organizado.<br />
+- Se facilita el acceso a las opciones realmente útiles.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+5. Eliminación de cuenta<br />
+<br />
+Nueva función disponible para todos los jugadores.<br />
+<br />
+- Ahora podrás eliminar tu propia cuenta directamente desde el menú de Opciones.<br />
+- El proceso es sencillo y accesible desde el propio juego.<br />
+- Se añade un mayor control sobre la gestión de la cuenta del jugador.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Mejoras generales<br />
+<br />
+6. Correcciones y optimización<br />
+<br />
+Además de las novedades anteriores, se han realizado diversos ajustes internos.<br />
+<br />
+- Corrección de pequeños errores detectados.<br />
+- Mejoras de estabilidad del servidor.<br />
+- Optimización del rendimiento en diferentes apartados del juego.<br />
+- Pequeñas mejoras visuales y de funcionamiento para ofrecer una experiencia más fluida.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Seguimos trabajando para mejorar Vendetta Legacy y agradecemos todos los reportes y sugerencias que nos hacéis llegar. ¡Gracias por seguir apoyando el proyecto!
+                    </div>
+                            </article>
+                    <article class="vendetta-changelog-entry">
+                <h2 class="vendetta-changelog-entry__title">
+                    Version 1.0.5 — 2026-06-27 11:28
+                </h2>
+                                    <div class="vendetta-legal-body vendetta-changelog-entry__body">
+                        Resumen de todos los cambios recientes<br />
+<br />
+Familias<br />
+<br />
+1. Visión global de la familia<br />
+<br />
+Nueva página de visión global para las familias.<br />
+<br />
+- Permite consultar de un vistazo las estadísticas de todos los miembros.<br />
+- Muestra información relevante para mejorar la coordinación de la familia.<br />
+- Facilita el seguimiento de la evolución de cada integrante.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+2. Acceso rápido a la familia<br />
+<br />
+Mejora en la navegación.<br />
+<br />
+- Ahora, al pulsar sobre el nombre de tu familia desde la visión general, accederás directamente a la página de tu familia.<br />
+- Acceso más rápido y cómodo a la información de la organización.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Combate<br />
+<br />
+3. Corrección de tropas estacionadas en batalla<br />
+<br />
+Solucionado un importante error en el sistema de combate.<br />
+<br />
+- Si recibías tropas estacionadas antes de que llegara un ataque enemigo, estas no participaban correctamente en la defensa.<br />
+- Ahora las tropas estacionadas se incorporan al combate siempre que hayan llegado antes del ataque.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Entrenamientos<br />
+<br />
+4. Corrección del Contrabando<br />
+<br />
+Corregido el funcionamiento del entrenamiento Contrabando.<br />
+<br />
+- Antes no aumentaba correctamente la capacidad de carga de las tropas.<br />
+- Ahora el bonus se aplica correctamente a todas las tropas correspondientes.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Interfaz del jugador<br />
+<br />
+5. Mejora del selector lateral de edificios<br />
+<br />
+Optimizado el selector de edificios de la visión general.<br />
+<br />
+- Navegación más rápida e intuitiva.<br />
+- Mejor experiencia de uso al cambiar entre edificios.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Servidor 3<br />
+<br />
+6. Nuevo apartado de Donaciones<br />
+<br />
+Añadido un nuevo apartado de Donar en el Servidor 3.<br />
+<br />
+- Las donaciones son completamente voluntarias.<br />
+- Su objetivo es ayudar al mantenimiento y desarrollo continuo del juego.<br />
+- No es obligatorio realizar ninguna aportación para jugar.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+---<br />
+<br />
+Optimización y correcciones<br />
+<br />
+7. Optimización de consultas a la base de datos<br />
+<br />
+Se realizaron nuevas optimizaciones internas para mejorar el rendimiento del servidor.<br />
+<br />
+- Consultas SQL optimizadas.<br />
+- Menor consumo de recursos.<br />
+- Mayor rapidez en distintas secciones del juego.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+8. Corrección de errores menores<br />
+<br />
+Corregidos diversos errores detectados durante las últimas pruebas.<br />
+<br />
+- Mejoras de estabilidad.<br />
+- Ajustes de funcionamiento.<br />
+- Pequeñas correcciones generales para una mejor experiencia de juego.<br />
+<br />
+(Hecho, desplegado)<br />
+<br />
+🚀 Esta actualización incorpora la nueva Visión Global de Familia, importantes correcciones en el sistema de combate y entrenamientos, mejoras en la interfaz, el nuevo apartado de Donaciones para el Servidor 3 y diversas optimizaciones destinadas a mejorar el rendimiento y la estabilidad del juego.
+                    </div>
+                            </article>
+                    <article class="vendetta-changelog-entry">
+                <h2 class="vendetta-changelog-entry__title">
+                    Version 1.0.4 — 2026-06-22 21:47
+                </h2>
+                                    <div class="vendetta-legal-body vendetta-changelog-entry__body">
+                        Resumen de todos los cambios recientes<br />
+Familias<br />
+1. Corrección de logos de familia<br />
+Solucionado un problema que impedía subir determinadas imágenes como logo de familia.<br />
+Ahora se aceptan correctamente las imágenes compatibles.<br />
+Mejorado el sistema de validación de archivos.<br />
+Corregidos errores relacionados con la subida de logos.<br />
+(Hecho, desplegado)<br />
+Mensajes<br />
+2. Envío directo a jugadores<br />
+Nueva funcionalidad en el sistema de mensajes.<br />
+Ahora es posible enviar mensajes directamente a otros jugadores desde la propia sección de mensajes.<br />
+Acceso más rápido y cómodo a la mensajería privada.<br />
+(Hecho, desplegado)<br />
+3. Eliminar todos los mensajes<br />
+Añadido nuevo botón para la gestión de mensajes.<br />
+Permite eliminar todos los mensajes de la bandeja de una sola vez.<br />
+Facilita la limpieza y organización de la mensajería.<br />
+(Hecho, desplegado)<br />
+Mapa y misiones<br />
+4. Acceso directo a misiones desde el mapa<br />
+Mejora en la navegación del mapa.<br />
+Al pulsar sobre una casilla del mapa, el sistema abre automáticamente la pantalla de misiones.<br />
+Las coordenadas seleccionadas se cargan automáticamente.<br />
+Ya no es necesario introducir las coordenadas manualmente.<br />
+(Hecho, desplegado)<br />
+Recordes y estadísticas<br />
+5. Corrección de entrenamientos en récords<br />
+Solucionado un error en la sección de récords.<br />
+Algunos entrenamientos no aparecían correctamente.<br />
+Ahora todos los entrenamientos se muestran de forma adecuada en las estadísticas.<br />
+(Hecho, desplegado)<br />
+Login y recuperación de cuenta<br />
+6. Recuperación de contraseña<br />
+Corregido el sistema de recuperación de contraseña.<br />
+Existía un error relacionado con el formato del correo electrónico.<br />
+Los correos de recuperación vuelven a enviarse correctamente.<br />
+Los jugadores ya pueden restablecer sus contraseñas desde el login.<br />
+(Hecho, desplegado)<br />
+Optimización y correcciones<br />
+7. Optimización de consultas a la base de datos<br />
+Mejorado el rendimiento interno del juego.<br />
+Consultas SQL optimizadas.<br />
+Menor carga sobre el servidor.<br />
+Mayor velocidad de respuesta en distintas secciones.<br />
+(Hecho, desplegado)<br />
+8. Corrección de errores menores<br />
+Corregidos diversos problemas detectados durante el desarrollo y las pruebas.<br />
+Ajustes de estabilidad.<br />
+Correcciones visuales.<br />
+Mejoras generales de funcionamiento.<br />
+(Hecho, desplegado)
+                    </div>
+                            </article>
+                    <article class="vendetta-changelog-entry">
+                <h2 class="vendetta-changelog-entry__title">
+                    Version 1.0.3 — 2026-06-21 11:26
+                </h2>
+                                    <div class="vendetta-legal-body vendetta-changelog-entry__body">
+                        Resumen de todos los cambios recientes<br />
+Juego<br />
+1. Modo Vacaciones<br />
+Nuevo sistema de vacaciones.<br />
+Mientras el modo vacaciones esté activo, el jugador no puede ser atacado.<br />
+Tampoco puede atacar a otros jugadores.<br />
+La protección se mantiene durante toda la duración del modo vacaciones.<br />
+(Hecho, desplegado)<br />
+Producción y construcciones<br />
+2. Cola de habitaciones mejorada<br />
+Mejorado el sistema de cola de habitaciones.<br />
+Antes los recursos podían descontarse incorrectamente desde la primera construcción de la cola.<br />
+Ahora cada habitación añadida a la cola descuenta sus propios recursos en el momento de añadirse.<br />
+El sistema funciona correctamente incluso con varias construcciones en espera.<br />
+(Hecho, desplegado)<br />
+Herramientas del jugador<br />
+3. Lista de granjas<br />
+Nueva función para gestionar objetivos habituales.<br />
+Permite guardar jugadores enemigos como granjas.<br />
+Acceso rápido a objetivos frecuentes.<br />
+Facilita la gestión de ataques sin necesidad de volver a buscarlos.<br />
+(Hecho, desplegado)<br />
+Panel de administración<br />
+4. Configuración de duración de habitaciones<br />
+Nueva herramienta administrativa.<br />
+Posibilidad de aumentar los tiempos de construcción de habitaciones.<br />
+Posibilidad de reducir los tiempos de construcción.<br />
+Permite equilibrar la velocidad del servidor sin modificar manualmente cada habitación.<br />
+(Hecho, desplegado)<br />
+Optimización y correcciones<br />
+5. Optimización de base de datos<br />
+Se realizaron mejoras internas en la estructura y consultas de la base de datos.<br />
+Menor carga del servidor.<br />
+Respuestas más rápidas.<br />
+Mejor rendimiento general del juego.<br />
+(Hecho, desplegado)<br />
+6. Corrección de errores menores<br />
+Corregidos diversos errores detectados durante las pruebas y reportados por los jugadores.<br />
+Ajustes de estabilidad.<br />
+Correcciones visuales.<br />
+Pequeñas mejoras generales del sistema.<br />
+(Hecho, desplegado)
+                    </div>
+                            </article>
+                    <article class="vendetta-changelog-entry">
+                <h2 class="vendetta-changelog-entry__title">
+                    Version 1.0.2 — 2026-05-31 10:56
+                </h2>
+                                    <div class="vendetta-legal-body vendetta-changelog-entry__body">
+                        Resumen de todos los cambios<br />
+Lista de lo que hemos hecho en estas sesiones:<br />
+<br />
+Juego (combate, espionaje, ranking)<br />
+1. Mercenarios en espionaje y batalla<br />
+Corregido: ya no se cuentan dos veces. Los informes nuevos deberían ir bien. (Desplegado en servidor)<br />
+<br />
+2. Habitaciones en el informe de espionaje<br />
+El espionaje muestra también las habitaciones del edificio espionado (como en el juego original). (Hecho,  desplegado<br />
+<br />
+3. Puntos de batalla en el ranking<br />
+Corregido el cálculo de puntos perdidos en la clasificación de BATALLAS. (Hecho,  desplegado)<br />
+<br />
+Interfaz del jugador<br />
+4. Logo de familia en móvil<br />
+Arreglada la subida del logo desde el móvil (antes fallaba con un error genérico). (Hecho,  desplegado)<br />
+<br />
+5. Avatar del perfil<br />
+El avatar vuelve a llenar bien el círculo en móvil. (Hecho,  desplegado)<br />
+<br />
+6. Flechas ← → para cambiar edificio<br />
+Atajo de teclado para ir al edificio anterior/siguiente (como las flechas del juego). (Hecho,  desplegado)<br />
+<br />
+7. Detalle de entrenamientos<br />
+Al pulsar un entrenamiento se abre una página de detalle, similar a las habitaciones. (Hecho, desplegado)<br />
+<br />
+8. Quitado “Reglas del juego” del menú lateral<br />
+Ese enlace ya no aparece en el menú de la izquierda. (Hecho, desplegado)<br />
+<br />
+Login y páginas públicas<br />
+9. Política de privacidad y condiciones de uso<br />
+Los enlaces del login abren páginas completas:<br />
+<br />
+/privacy-policy<br />
+/terms-of-use<br />
+(Hecho, no desplegado)<br />
+10. Versión clicable en el login<br />
+Al pulsar el número de versión (ej. 0.15) se abre la página de cambios: /changelog<br />
+(Hecho,  desplegado)<br />
+<br />
+Panel de administración<br />
+11. Sección VIP<br />
+Nueva pestaña VIP en el admin:<br />
+<br />
+Ver quién ha pagado VIP en cada servidor<br />
+Ver hasta cuándo tiene VIP<br />
+Cancelar suscripción (mantiene VIP hasta la fecha pagada)<br />
+Quitar ya (quita VIP al instante)<br />
+(Hecho, no desplegado)<br />
+12. Sección Versión<br />
+Nueva pestaña Versión en el admin:<br />
+<br />
+Cambiar el número que se ve en el login<br />
+Escribir notas de cada actualización<br />
+Publicar versión → guarda en el historial<br />
+Tabla con todas las versiones publicadas (fecha, resumen, eliminar si te equivocas)<br />
+La página pública muestra todo el historial, no solo la última<br />
+(Hecho,  desplegado)
+                    </div>
+                            </article>
+            </div>
+</div>
+</main>
+</body>
+</html>
